@@ -1,0 +1,299 @@
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.placeholder {
+
+    height: 24px;
+
+    align-self: stretch;
+
+    flex-grow: 0;
+
+    display: flex;
+
+    flex-direction: row;
+
+    justify-content: flex-start;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 0;
+
+}
+
+.Frame-1854 {
+    width: 490px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    padding: 0;
+
+}
+
+.ng-nhp {
+    width: 215px;
+    height: 60px;
+    font-family: Lexend;
+    font-size: 40px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    color: #22493b;
+}
+
+.inputs {
+    width: 490px;
+    height: 324px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 24px;
+    padding: 32px;
+    border-radius: 24px;
+    background-color: #fff;
+}
+
+.input-atom {
+    height: 62px;
+    align-self: stretch;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 8px 8px 8px 16px;
+    border-radius: 4px;
+    border: solid 1px #e8ebed;
+}
+
+.email {
+    width: 33px;
+    height: 18px;
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #22493b;
+}
+
+.password {
+    width: 55px;
+    height: 18px;
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #454c53;
+}
+
+.Rectangle {
+    width: 728px;
+    height: 482px;
+    padding: 25px 119px 57px;
+    object-fit: contain;
+    backdrop-filter: blur(15px);
+    border-radius: 24px;
+    -webkit-backdrop-filter: blur(15px);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.Placeholder {
+    height: 21px;
+    width: 300px;
+    flex-grow: 1;
+    font-family: Lexend;
+    font-size: 16px;
+    font-weight: bold !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    border: none;
+    color: #454c53;
+}
+
+input::placeholder {
+    height: 21px;
+    flex-grow: 1;
+    font-family: Lexend;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #9ea4aa;
+}
+
+input:focus {
+    outline: none;
+}
+
+input:focus::placeholder {
+    height: 21px;
+    flex-grow: 1;
+    font-family: Lexend;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #454c53;
+}
+
+input {
+    border: none;
+}
+
+img.visibility_off {
+    width: 24px;
+    height: 24px;
+    flex-grow: 0;
+    object-fit: contain;
+    align-items: right;
+}
+
+.pw {
+    height: 110px;
+    align-self: stretch;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 24px;
+    padding: 0;
+}
+
+.inner-frame {
+    width: 490px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    padding: 0;
+}
+
+.check-box {
+    width: 438px;
+    height: 24px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    padding: 0;
+}
+
+.Content {
+    width: 127px;
+    height: 20px;
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: expanded;
+    font-style: normal;
+    line-height: 1.78;
+    letter-spacing: normal;
+    text-align: center;
+    color: #9ea4aa;
+}
+
+.link {
+    width: 112px;
+    height: 21px;
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    color: #0288d1;
+}   
+.link:hover {
+    opacity: 0.5;
+    color: #000;
+}
+.Thm-hnh-nh-c-sn {
+    width: 76px;
+    height: 21px;
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+}
+.btn {
+    display: flex;
+    font-family: Lexend;
+    gap: 10px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px !important;
+    background-color: #22493b !important;
+    height: 40px;
+    text-align: center !important;
+}
+.btn:hover {
+    color: #0288d1;
+    background-color: white !important;
+}
+.abc {
+    width: 309px !important;
+    height: 45px !important;
+}
+.Chng-ti-s-gi-mt-m-xc-thc-vo-email-ca-bn-thit-lp-li-mt-khu {
+    height: 42px;
+    align-self: stretch;
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    color: #9ea4aa;
+}
