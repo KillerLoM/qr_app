@@ -1,0 +1,203 @@
+$color-background-clicked:  #e2f1ef;
+$radius-top:20px;
+$radius-bottom: 20px;
+$color-menu:  #22493b;
+body{
+    width: 100vw;
+    height: 100vh;
+    padding: 0 14px 0 0;
+    background-color: #e2f1ef;
+}
+.list-menu {
+    width: 220px;
+    height: 140px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 0;
+    background-color: $color-background-clicked;
+    border-top-left-radius: $radius-top;
+    border-bottom-left-radius: $radius-bottom;
+}
+.Frame-1858 {
+    width: 220px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 0 16px 0 0;
+    padding: 16px 0 16px 16px;
+    background-color: #22493b;
+}
+.Frame-1862 {
+    height: 65px;
+    align-self: stretch;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+}
+.material-symbols-outlined{
+    width: 40px;
+    height: 40px;
+    flex-grow: 0;
+}
+.infor{
+    height: 17px;
+    flex-grow: 1;
+    font-family: Lexend;
+    font-size: 14px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: $color-menu; 
+}
+.menu {
+    width: auto;
+    height: 40px;
+    align-self: stretch;
+    flex-grow: 0;
+    display: block;
+    flex-direction: row;
+
+    gap: 8px;
+    padding: 8px;
+    background-color: #22493b;
+  }
+  .menu-item {
+    height: 40px;
+    align-self: stretch;
+    flex-grow: 0; 
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    color: #22493b;
+}
+.menu-certi{
+    height: 40px;
+    align-self: stretch;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background-color: #22493b;
+}
+.menu-location{
+    height: 40px;
+    align-self: stretch;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background-color: #22493b;
+}
+.menu-item-list{
+    height: 40px;
+    align-self: stretch;
+    flex-grow: 0;
+    display: block !important;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+
+}
+.certi{
+    height: 17px;
+    flex-grow: 1;
+    font-family: Lexend;
+    font-size: 14px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+.location{
+    height: 17px;
+    flex-grow: 1;
+    font-family: Lexend;
+    font-size: 14px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+img.verified {
+    width: 24px;
+    height: 24px;
+    flex-grow: 0;
+    object-fit: contain;
+}
+img.locate {
+    width: 24px;
+    height: 24px;
+    flex-grow: 0;
+    object-fit: contain;
+}
+.menu-news{
+    height: 40px;
+    align-self: stretch;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background-color: #22493b;
+}
+.news{
+    height: 17px;
+    flex-grow: 1;
+    font-family: Lexend;
+    font-size: 14px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+img.newspapers{
+    width: 24px;
+    height: 24px;
+    flex-grow: 0;
+    object-fit: contain;
+}
+img.list {
+    width: 24px;
+    height: 24px;
+    flex-grow: 0;
+    object-fit: contain;
+}
+
+.material-symbols-outlined{
+    width: 33px;
+    height: 20px;
+}

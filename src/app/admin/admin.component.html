@@ -1,1 +1,172 @@
-<p>admin works!</p>
+<html>
+
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+</head>
+
+<body style="
+background: url('./assets/landscape-1.jpg') repeat center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;">
+  <section class="position-absolute top-50 start-50 translate-middle">
+    <div class="Rectangle">
+      <div *ngIf="!isForget && !completted" class="inner-frame "  id="HOME">
+        <span class="ng-nhp">Đăng nhập</span>
+        <form [formGroup]="loginForm" novalidate>
+          <div class="inputs">
+            <div class="input-atom">
+              <div class="email">
+                <label>Email </label>
+              </div>
+              <input id="input" type="email" formControlName="emailFormControl" required
+                placeholder="Nhập email của bạn tại đây" #emailInput class="Placeholder">
+            </div>
+            <div class="pw">
+              <div class="input-atom">
+                <div class="password">
+                  <label>Mật khẩu </label>
+                </div>
+                <div class="hstack gap-3">
+                  <input type="password" formControlName="passwordFormControl" required class="Placeholder" id="pwd"
+                    placeholder="Nhập mật khẩu của bạn tại đây" #passwordInput>
+                  <span class="material-symbols-outlined visibility_off rounded float-end" type="button" id="visibility"
+                    (click)="changeToggle()">
+                    {{VisibilityInstruction}}
+                  </span>
+                </div>
+              </div>
+              <div class="d-flex mb-3">
+                <div class="check-box">
+                  <label type="button" class="Content">
+                    <input type="checkbox" class="p-2" #saveInput>
+                    Ghi nhớ đăng nhập
+                  </label>
+                  <div class="ms-auto p-2">
+                    <div
+                      class="link link-offset-2  link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                      type="button" (click)="forgetPassword()">
+                      Quên mật khẩu
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button [disabled]="!loginForm.valid" type="submit" type="button" class="btn btn-success"
+                (click)="signIn(emailInput, passwordInput, saveInput)">Đăng nhập</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="isForget && !isReset" class="inner-frame " id="forgetPassword" >
+        <span class="ng-nhp abc" id="forgetPWD" style="margin-bottom: 5%;">Quên mật khẩu</span>
+        <form [formGroup]="resetForm" novalidate>
+          <div class="inputs" style="width: 520px; height: 297px;">
+            <span class="Chng-ti-s-gi-mt-m-xc-thc-vo-email-ca-bn-thit-lp-li-mt-khu">
+              Chúng tôi sẽ gửi một mã xác thực vào email của bạn để thiết lập lại mật khẩu!
+            </span>
+            <div class="input-atom-reset">
+              <div class="labelReset">
+                <label>Email </label>
+              </div>
+              <input id="input" type="email" formControlName="emailResetFormControl" required
+                placeholder="Nhập email của bạn tại đây" #emailReset class="Placeholder">
+            </div>
+            <button type="button" class="btn btn-success " (click)="resetPassword(emailReset)"
+              [disabled]="!resetForm.valid" type="submit" type="button">Gửi</button>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="setPwd" class="inner-frame " id="HOME" >
+        <span style="
+          width: 382px; height: 70px;" class="ng-nhp">Thiết lập lại mật khẩu</span>
+        <form [formGroup]="newPasswordForm" novalidate>
+          <div class="inputs" style="width: 520px; height: 297px;">
+            <div class="input-atom-reset">
+              <div class="labelReset" style="width: 110px;">
+                <label>Mật khẩu mới </label>
+              </div>
+              <div class="hstack gap-3">
+                <input type="password" formControlName="newPasswordFormControl" required class="Placeholder" id="pwdNew"
+                  placeholder="Nhập mật khẩu của bạn tại đây" #passwordNew>
+                <span class="material-symbols-outlined visibility_off rounded float-end" type="button" id="visibility"
+                  (click)="changeToggleReset()">
+                  {{VisibilityInstruction}}
+                </span>
+              </div>
+            </div>
+            <div class="pw">
+              <div class="input-atom-reset">
+                <div class="labelReset" style="width: 142px;">
+                  <label>Xác thực lại mật khẩu</label>
+                </div>
+                <div class="hstack gap-3">
+                  <input type="password" 
+                  formControlName="confirmPasswordFormControl"
+                  required class="Placeholder"
+                  id="pwdValidate"
+                  placeholder="Nhập mật khẩu của bạn tại đây">
+                  <span class="material-symbols-outlined visibility_off rounded float-end" type="button" id="visibility"
+                    (click)="changeToggleReset()">
+                    {{VisibilityInstruction}}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button type="button" 
+            class="btn btn-success "
+            [disabled]="newPasswordForm.invalid"
+            type="submit" (click)="setNewPassword(passwordNew)">Hoàn thành</button>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="isReset && !setPwd " class="inner-frame " >
+        <span class="ng-nhp abc" id="forgetPWD" style="margin-bottom: 5%;">Mã xác thực</span>
+        <form [formGroup]="resetForm" novalidate>
+          <div class="inputs" style="width: 490px; height: 256px;">
+            <span class="Chng-ti-s-gi-mt-m-xc-thc-vo-email-ca-bn-thit-lp-li-mt-khu">
+              Vui lòng nhập mã xác thực để thiết lập lại mật khẩu
+            </span>
+            <div class="Frame-1867" style="  height: 25px;
+          align-self: stretch;
+          flex-grow: 0;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;">
+              <div style='display: flex; justify-content: center; flex-direction: row;' id="otpInput">
+                <ng-otp-input #otpInput (onInputChange)="validateOTP($event)" [config]="config">
+                </ng-otp-input>
+              </div>
+            </div>
+            <button style="margin-top: 30px;" type="submit" class="btn btn-success " (click)="handleOtp(temp)"
+              [disabled]="!isOTP" type="submit" type="button" id="otpSEND">Xong</button>
+              <span id = "expiredOTP" type="button" (click)="sendEmailAgain()" style="display: none;" >Gửi lại mã OTP</span>
+          </div>
+        </form>
+      </div>
+      <div  class="inner-frame " id = "abc" style="display: none;">
+        <span class="ng-nhp announcement" id="forgetPWD" style="margin-bottom: 5%;">Thiết lập lại mật khẩu thành công!</span>
+        <img src="./assets/asset.png" srcset="./assets/asset@2x.png 2x, ./assets/asset@3x.png 3x"class="asset">
+        <span class="H-thng-s-t-ng-chuyn-sang-mn-hnh-ng-nhp-sau-0005">
+          Hệ thống sẽ tự động chuyển sang màn hình đăng nhập sau
+          <span id = "countdown" class="text-style-1">00:0{{startTime}}</span>
+        </span>
+      </div>
+    </div>
+  </section>
+  <div *ngIf="isLoading" class="opacity-50"
+    style=" display: none; position: fixed; top: 0; left: 0; min-width: 100vw; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.9);">
+    <h1 style="color: black;font-weight: bolder;">VUI LÒNG CHỜ.</h1>
+    <h1 style="color: black;font-weight: bolder;">CHÚNG TÔI ĐANG XỬ LÝ !</h1>
+    <div class="spinner-border spinner-border text-success opacity-100" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</body>
+
+</html>
