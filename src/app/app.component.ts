@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { AppService } from './app.service';
-import { catchError } from 'rxjs';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-import { NgToastService } from 'ng-angular-popup';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-root',
@@ -28,7 +25,7 @@ export class AppComponent {
       )
     }
     else {
-      this.router.navigate(['admin']);
+      this.router.navigate(['login']);
     } 
   }
 }

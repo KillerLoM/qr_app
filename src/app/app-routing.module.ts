@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: AppComponent,
-    title: 'Login Admin',
+    title: 'PROJECT',
   },
   {
     path: 'admin',
