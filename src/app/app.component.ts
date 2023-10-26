@@ -13,9 +13,10 @@ export class AppComponent {
     let token: string | null = localStorage.getItem('token');
     if(token == null) 
     {token = sessionStorage.getItem('token');}
-    if (token) {
+    if (token != null) {
       this.AppService.validateToken({token:token}).subscribe((data:any) => {
         if(data == 'valid'){
+          
           this.router.navigate(['admin']);
         }
         else {
@@ -24,7 +25,7 @@ export class AppComponent {
       }
       )
     }
-    else {
+    else if(token == null) {
       this.router.navigate(['login']);
     } 
   }

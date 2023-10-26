@@ -5,12 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminComponent } from './admin/admin.component';
 import { AppService } from './app.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgToastModule } from 'ng-angular-popup';
 import { ToastrModule } from 'ngx-toastr';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ManagementComponent } from './management/management.component';
+import { InterceptorService } from './interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,11 @@ import { ManagementComponent } from './management/management.component';
       
 
   ],
-  providers: [AppService],
+  providers: [AppService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -59,4 +59,14 @@ export class AppService {
       })
     );
   }
+  demo(): Observable<any> {
+    return this.http.get(this.url+'/hello', {
+      responseType: 'text',
+
+    }).pipe(
+      catchError(error => {
+        return throwError(error);
+      })
+    );
+  }
 }

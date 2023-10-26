@@ -9,6 +9,13 @@
     gap: 8px;
     padding: 8px;
     background-color: #22493b;
+    svg path:first-child {
+        fill: #fff;
+    }
+    svg path:last-child {
+        fill: #fff;
+    }
+    margin-left:  10%;
 }
 @mixin init_span{
     height: 17px;
@@ -22,23 +29,38 @@
     letter-spacing: normal;
     text-align: left;
     color: #fff;
+    margin-left:  10%;
 }
-@mixin image_properties{
-    width: 24px;
-    height: 24px;
+.menu-header{
     flex-grow: 0;
-    object-fit: contain;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
 }
+svg path:first-child {
+    fill: gray;
+    background-color: gray !important;
+}
+
 $color-background-clicked:  #e2f1ef;
 $radius-top:20px;
 $radius-bottom: 20px;
 $color-menu:  #22493b;
 $color-news-clicked: #22493b;
 body{
-    width: 100vw;
-    height: 100vh;
-    padding: 0 14px 0 0;
+
+    // padding: 0 14px 0 0;
     background-color: #e2f1ef;
+}
+.container1{
+
+    display: flex;
+    padding-left: 0;
+    margin-left: 0%;
+    margin-right: 0%;
 }
 .menu-certi{
     @include init_menu;
@@ -47,6 +69,25 @@ body{
     @include init_menu;
 }
 .menu-news{
+    @include init_menu;
+}
+.menu-list{
+    height: 40px;
+    align-self: stretch;
+    display: block;
+    margin-left:  10%;
+    align-items: center;
+    gap: 8px;
+    padding: 2px;
+    background-color: #22493b;
+    svg path:first-child {
+        fill: #fff;
+    }
+    svg path:last-child {
+        fill: #fff;
+    }
+}
+.list-menu{
     @include init_menu;
 }
 .certi{
@@ -58,23 +99,12 @@ body{
 .news{
     @include init_span;
 }
-
-img{
-    .newspapers{
-        @include image_properties;
-    }
-    .list{
-        @include image_properties;
-    }
-    .locate{
-        @include image_properties;
-    }
-    .verified{
-        @include image_properties;
-    }
+.list{
+    @include init_span;
 }
+
 .Frame-1858 {
-    width: 220px;
+    width: 260px;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -82,10 +112,12 @@ img{
     align-items: flex-start;
     gap: 16px;
     margin: 0 16px 0 0;
-    padding: 16px 0 16px 16px;
+    // padding: 16px 0 16px 16px;
     background-color: #22493b;
 }
 .Frame-1862 {
+
+    position: relative;
     height: 65px;
     align-self: stretch;
     flex-grow: 0;
@@ -99,43 +131,71 @@ img{
 .material-symbols-outlined{
     width: 40px;
     height: 40px;
-    flex-grow: 0;
+    flex-grow: 2;
+    color: white ;
 }
-.list-menu {
-    width: 220px;
-    height: 140px;
-    flex-grow: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    padding: 0;
-    background-color: $color-background-clicked;
-    border-top-left-radius: $radius-top;
-    border-bottom-left-radius: $radius-bottom;
-}
+
 .menu-item {
-    height: 40px;
+    height: 38px;
     align-self: stretch;
     flex-grow: 0; 
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 15%;
     gap: 8px;
-    padding: 8px;
+    padding: 10px;
     color: #22493b;
+    font-weight: 500;
 }
+.active-spot {
+
+    width: 8px;
+  
+    height: 8px;
+  
+    flex-grow: 0;
+  
+    background-color: #ed6c02;
+  
+  }
 .menu-item-list{
     height: 40px;
     align-self: stretch;
     flex-grow: 0;
-    display: block !important;
+    display: flex ;
+    flex-direction: column !important;
     justify-content: flex-start;
     align-items: center;
     gap: 8px;
     padding: 8px;
 }
+.search-bar {
+
+    width: 309px;
+  
+    height: 40px;
+  
+    flex-grow: 0;
+  
+    display: flex;
+  
+    flex-direction: row;
+  
+    justify-content: flex-start;
+  
+    align-items: center;
+  
+    gap: 10px;
+  
+    padding: 1px 16px;
+  
+    border-radius: 8px;
+  
+    border: solid 1px #8ac9bb;
+  
+  }
+  
 .infor{
     height: 17px;
     flex-grow: 1;
@@ -164,7 +224,38 @@ img{
     gap: 8px;
     padding: 8px;
     background-color: #e2f1ef;
+    border-top-left-radius: $radius-top;
+    border-bottom-left-radius: $radius-bottom;
+    span{
+        color: #22493B;
+    }
+    svg path:first-child {
+        fill: #22493B;
+    }
+    svg path:last-child {
+        fill: #22493B;
+    }
 }
+.active-menu {
+    width: 238px ;
+    height: 150px ;
+    gap: 8px;
+    padding: 8px;
+    background-color: #e2f1ef;
+    border-top-left-radius: $radius-top;
+    border-bottom-left-radius: $radius-bottom;
+    span{
+        color: #22493B;
+    }
+    svg path:first-child {
+        fill: #22493B;
+    }
+    svg path:last-child {
+        fill: #22493B;
+    }
+
+}
+
 .active-title{
     height: 17px;
     flex-grow: 1;
@@ -178,3 +269,66 @@ img{
     text-align: left;
     color: #22493b;
 }
+.all{
+    width: 1170px;
+    display: flex;
+    display: flex;
+
+    flex-direction: column;
+  
+    justify-content: flex-start;
+  
+    align-items: flex-start;
+    gap: 16px;
+    padding: 0;
+}
+.titleHeading {
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 32px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #22493b;
+}
+.mb-3{
+    width: 1230px;
+    height: 40px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    padding: 0;
+}
+.Tm-kim {
+
+    width: 62px;
+  
+    height: 21px;
+  
+    flex-grow: 0;
+  
+    font-family: Lexend;
+  
+    font-size: 14px;
+  
+    font-weight: normal;
+  
+    font-stretch: normal;
+  
+    font-style: normal;
+  
+    line-height: 1.5;
+  
+    letter-spacing: normal;
+  
+    text-align: center;
+  
+    color: #3b927d;
+  
+  }
