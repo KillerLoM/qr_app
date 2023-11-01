@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, Inject } from '@angular/core';
 import { GetGinsengsService } from 'src/app/services/api-service/ginseng-service/get-ginsengs.service';
 import { Ginseng } from '../../../model/ginseng';
-
+import { PaginationService } from 'src/app/services/app-service/pagination.service';
 @Component({
   selector: 'app-ginseng-management',
   templateUrl: './ginseng-management.component.html',
@@ -12,22 +12,22 @@ export class GinsengManagementComponent {
   amount = '';
   numberOfItems = 10;
   currentPage = 1;
-  page = 0;
   size = 0;
+  page = 0;
   next = true;
   item1: any;
-  item2: number | undefined;
-  item3: any | undefined;
+  item2: any ;
+  item3: any ;
   check = document.getElementsByClassName('active-atom');
   isNext = false;
   isPrev = false;
-  constructor(@Inject(GetGinsengsService) private getListGinseng: GetGinsengsService) {
-    this.getListGinseng.getListGinseng(this.numberOfItems, this.page).subscribe((data: any) => {
+  constructor(@Inject(GetGinsengsService) private getListGinseng: GetGinsengsService, private pagination: PaginationService) {
+    this.getListGinseng.getListGinseng(this.numberOfItems, 0).subscribe((data: any) => {
       this.ginseng = data.ginseng;
       this.amount = data.amount + " Loại sâm";
       this.size = data.amount;
-      this.init();
-      this.page = 10;
+      this.pagination.init(this.size, this.numberOfItems);
+      this.setUp(); 
     });
   }
   HandleDelte(code: any) {
@@ -35,131 +35,35 @@ export class GinsengManagementComponent {
   }
   HandleClick(value: any) {
     this.numberOfItems = value.target.value;
-    this.init();
-    this.GetList(this.numberOfItems, this.currentPage);
+    this.pagination.init(this.size, this.numberOfItems);
+    this.setUp();
   }
-  init() {
-    this.item1 = 1;
-    this.page = Math.ceil(this.size / this.numberOfItems);
-    this.currentPage = 1;
-    let check = document.querySelector('.active-atom');
-    check?.classList.remove('active-atom');
-    let first = document.querySelector("#first");
-    first?.classList.add("active-atom");
-    if (this.page == 1) {
-      this.item3 = undefined;
-      this.item2 = undefined;
-    }
-    if (this.page == 2) {
-      this.item2 = 2;
-      this.item3 = undefined;
-    }
-    if (this.page >= 3) {
-      this.item2 = 2;
-      this.item3 = '...';
-    }
-    this.HandleDisable();
-  }
-
   HandleNextPage() {
-    this.currentPage++;
-    let second = document.getElementById('second');
-    let first = document.getElementById('first');
-    if (this.page == 2) {
-      this.item1 = 1;
-      this.item2 = 2;
-      this.item3 = undefined;
-      this.changeActive(first, second);
-    }
-    else if (this.currentPage <= 2) {
-      this.item1 = 1;
-      this.item2 = 2;
-      this.item3 = '...';
-      this.changeActive(first, second);
-    }
-    else if (this.currentPage + 1 == this.page) {
-      this.item3 = this.page;
-      this.item2 = this.currentPage;
-      this.item1 = '...';
-    }
-    else if (this.currentPage === this.page) {
-      let third = document.getElementById('third');
-      this.changeActive(second, third);
-      this.item1 = '...';
-      this.item3 = this.page;
-      this.item2 = this.page - 1;
-    }
-    else {
-      this.item1 = this.item2;
-      this.item2 = this.currentPage;
-      this.item3 = '...';
-      this.changeActive(first, second);
-    }
-    this.GetList(this.numberOfItems, this.currentPage);
-    this.HandleDisable();
+    this.pagination.HandleNextPage();
+    this.setUp();
   }
   HandlePrevPage() {
-    this.currentPage--;
-    let second = document.getElementById('second');
-    let first = document.getElementById('first');
-    let third = document.getElementById('third');
-    if (this.page <= 2) {
-      this.changeActive(second, first);
-    }
-    else if (this.currentPage - 1 === 0) {
-      this.changeActive(second, first);
-    }
-    else if (this.currentPage == this.page - 1) {
-      this.changeActive(third, second);
-    }
-    else {
-      this.item1 = this.currentPage - 1;
-      this.item2 = this.currentPage;
-      this.item3 = '...';
-    }
-    this.GetList(this.numberOfItems, this.currentPage);
-    this.HandleDisable();
+    this.pagination.HandlePrevPage();
+    this.setUp();
   }
-  HandleDisable() {
-    if (this.page == 1) {
-      this.isPrev = true;
-      this.isNext = true;
-    }
-    else if (this.page == 2) {
-      if (this.check[0].id == 'first') {
-        this.isPrev = true;
-        this.isNext = false;
-      }
-      if (this.check[0].id == 'second') {
-        this.isNext = true;
-        this.isPrev = false;
-      }
-    }
-    else if (this.page >= 2) {
-      this.isNext = false;
-      if (this.check[0].id == 'first') {
-        this.isPrev = true;
-      }
-      if (this.check[0].id == 'third') {
-        this.isNext = true;
-      }
-      if (this.check[0].id == 'second') {
-        this.isNext = false;
-        this.isPrev = false;
-      }
-    }
-  }
-  changeActive(item1: any, item2: any) {
-    item1?.classList.remove('active-atom');
-    item2?.classList.add('active-atom');
-  }
-  GetList(number: any, page: number){
-    page --;
+  GetList(page: number, number: any ){
+    page--;
     this.getListGinseng.getListGinseng(number, page).subscribe((data: any) => {
       this.ginseng = data.ginseng;
       console.log(data);
       this.amount = data.amount + " Loại sâm";
       this.size = data.amount;
     });
+  }
+  setUp(){
+    this.pagination.HandleDisable();
+    this.item1 = this.pagination.item1;
+    this.item2 = this.pagination.item2;
+    this.item3 = this.pagination.item3;
+    this.isNext = this.pagination.isNext;
+    this.isPrev = this.pagination.isPrev;
+    this.currentPage = this.pagination.currentPage;
+    this.GetList( this.currentPage, this.numberOfItems);
+    console.log(1);
   }
 }
