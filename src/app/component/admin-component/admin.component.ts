@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
-import { AppService } from '../app.service';
+import { Component, Inject } from '@angular/core';
+import { AppService } from '../../services/app-service/app.service';
 import { catchError } from 'rxjs';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/api-service/auth-service/login.service';
+import { ForgetPasswordService } from 'src/app/services/api-service/auth-service/forget-password.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -31,9 +33,10 @@ export class AdminComponent {
     return null;
   }
   temp = "";
-  url = 'http://localhost:5050/admin/authenticate';
-
-  constructor(private appService: AppService, private toastr: ToastrService,  private router: Router) { }
+  constructor(private appService: AppService, 
+    @Inject(LoginService) private login: LoginService, 
+   private toastr: ToastrService, private router: Router,
+   @Inject(ForgetPasswordService) private forget: ForgetPasswordService) { }
   public changeToggle() {
     const pwdType = document.getElementById("pwd");
     if (pwdType?.getAttribute("type") === 'password') {
@@ -69,7 +72,7 @@ export class AdminComponent {
   async resetPassword(emailReset: HTMLInputElement) {
     this.isLoading = true;
     this.emailUser = emailReset.value;
-    this.appService.resetPassword({ email: emailReset.value }).subscribe((response: any) => {
+    this.forget.resetPassword({ email: emailReset.value }).subscribe((response: any) => {
       try {
         if (response == "Email is not created or wrong. Please check and try again") {
           this.isLoading = false;
@@ -90,7 +93,7 @@ export class AdminComponent {
   }
   async sendEmailAgain(){
     this.isLoading = true;
-    this.appService.resetPassword({ email: this.emailUser}).subscribe((response: any) => {
+    this.forget.resetPassword({ email: this.emailUser}).subscribe((response: any) => {
       try {
         if (response == "Email is not created or wrong. Please check and try again") {
           this.isLoading = false;
@@ -114,7 +117,7 @@ export class AdminComponent {
     let email = emailInput.value;
     let password = pwdInput.value;
     let obj = { email, password };
-    this.appService.onlogin(obj).subscribe((data: any) => {
+    this.login.onlogin(obj).subscribe((data: any) => {
       if (data.status == 'success') {
         
         if (saveInput.checked == true) {
@@ -211,7 +214,7 @@ export class AdminComponent {
     let email = this.emailUser;
     let password =  newPassword.value;
     let obj = {email, password};
-    this.appService.setNewPwd(obj).subscribe((data: any )=> {
+    this.forget.setNewPwd(obj).subscribe((data: any )=> {
       if(data == "OK"){
         setInterval(() => this.updateTimer(), 1000);
         this.completted = true;
@@ -223,7 +226,7 @@ export class AdminComponent {
     })
   }
   handleOtp(otp: string) {
-    this.appService.validateOTP(this.temp).subscribe((response: any) => {
+    this.forget.validateOTP(this.temp).subscribe((response: any) => {
       try {
         if (response == "OK") {
           document.getElementById("expiredOTP")?.setAttribute("style","display:none");

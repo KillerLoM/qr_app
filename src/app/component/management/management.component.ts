@@ -1,27 +1,26 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { elementAt } from 'rxjs';
-import { AppService } from '../app.service';
-import { ManagementGinsengService } from '../management-ginseng.service';
-import { Ginseng } from '../ginseng';
+import { AppService } from '../../services/app-service/app.service';
+import { GetGinsengsService } from 'src/app/services/api-service/ginseng-service/get-ginsengs.service';
+import { Ginseng } from '../../model/ginseng';
 @Component({
   selector: 'app-management',
   templateUrl: './management.component.html',
   styleUrls: ['./management.component.scss']
 })
 export class ManagementComponent {
-  ginseng: Ginseng[]|null = null;
-  amount= '';
+  isGinseng = false;
+  isOn = false;
+  show = '';
+  Type = '';
   active : HTMLElement | null = null;
   hide = true;
   iconList = '';
-  constructor(private appService: AppService, private mngService: ManagementGinsengService){
+  constructor(private appService: AppService){
     this.iconList = 'chevron_right';
-  
+    this.Type = " Chào mừng admin đã đến với trang web quản lý sâm. Phía dưới là video hướng dẫn: ";
   }
   HandleNews(element: any){
-    this.appService.demo().subscribe((data: any) =>{
-      alert(data);
-    })
     const element1 = element;
     console.log(element1.target );
     if(this.active?.className != undefined){
@@ -52,11 +51,15 @@ export class ManagementComponent {
     console.log(this.active?.className);
   }
   ginsengInput(){
-    document.getElementById("ginseng")?.setAttribute("style","color: black;font-weight : 500;");
-    this.mngService.getListGinseng().subscribe((data : any)=> {
-      this.ginseng = data.ginseng;
-      console.log(this.ginseng?.[1].certificate)
-      this.amount = data.amount + " loại sâm";
-    });
+    this.isGinseng = true;
+    this.isOn = true;
+    document.getElementById("ginseng")?.setAttribute("style","font-weight : bold;");
+  }
+  reset(){
+    this.isGinseng = false;
+  }
+  public HandleEvent($event: any) : void{
+    this.show = $event;
+    this.Type  =  'Danh sách Sâm'
   }
 }
