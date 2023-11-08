@@ -18,6 +18,7 @@ export class GinsengManagementComponent {
   item1: any;
   item2: any ;
   item3: any ;
+  isSorted = false;
   check = document.getElementsByClassName('active-atom');
   isNext = false;
   isPrev = false;
@@ -50,7 +51,6 @@ export class GinsengManagementComponent {
     page--;
     this.getListGinseng.getListGinseng(number, page).subscribe((data: any) => {
       this.ginseng = data.ginseng;
-      console.log(data);
       this.amount = data.amount + " Loại sâm";
       this.size = data.amount;
     });
@@ -64,6 +64,15 @@ export class GinsengManagementComponent {
     this.isPrev = this.pagination.isPrev;
     this.currentPage = this.pagination.currentPage;
     this.GetList( this.currentPage, this.numberOfItems);
-    console.log(1);
+  }
+  HandleSort(){
+    if(this.isSorted){
+      this.ginseng?.sort((a,b) => a.code.toString().localeCompare(b.code.toString()));
+      this.isSorted = false;
+    }
+    else{
+      this.ginseng?.sort((a,b) => a.name.toString().localeCompare(b.name.toString()));
+      this.isSorted = true;
+    }
   }
 }

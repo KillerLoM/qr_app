@@ -16,10 +16,6 @@ export class PaginationService {
   isNext = false;
   isPrev = false;
   constructor() { }
-  demo(){
-    let a = document.getElementById('first');
-    console.log(a);
-  }
   init(size: number, numberOfItems: number) {
     this.item1 = 1;
     this.page = Math.ceil(size / numberOfItems);

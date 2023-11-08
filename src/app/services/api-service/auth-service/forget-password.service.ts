@@ -11,7 +11,7 @@ export class ForgetPasswordService {
         this.url = this.service.getUrlAdmin();
     }
     resetPassword(obj: any): Observable<any> {
-        return this.http.post(`${this.url}/forget-password`, JSON.stringify(obj), {
+        return this.http.post(`${this.url}/authenticate/forget-password`, JSON.stringify(obj), {
           headers: { 'Content-Type': 'application/json' },
           responseType: 'text'
         }).pipe(
@@ -26,7 +26,7 @@ export class ForgetPasswordService {
         let params = new HttpParams().set('OTP', obj);
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
        
-        return this.http.post(`${this.url}/verify-account`, params.toString(), { 
+        return this.http.post(`${this.url}/authenticate/verify-account`, params.toString(), { 
           headers, params,  responseType: 'text' })
           .pipe(
             catchError(error => {
@@ -35,7 +35,7 @@ export class ForgetPasswordService {
           );
       }
       setNewPwd(obj: any): Observable<any> {
-        return this.http.put(`${this.url}/changePassword`, obj,{
+        return this.http.put(`${this.url}/authenticate/changePassword`, obj,{
           responseType: 'text',
           headers: { 'Content-Type': 'application/json' }
         }).pipe(

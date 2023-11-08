@@ -18,7 +18,7 @@ export class LoginService {
     );
   }
   validateToken(token: any): Observable<any>{
-    return this.http.post(`${this.url}/validate-token`,  JSON.stringify(token),{
+    return this.http.post(`${this.url}/authenticate/validate-token`,  JSON.stringify(token),{
       responseType: 'text',
       headers: { 'Content-Type': 'application/json' }
     }).pipe(
