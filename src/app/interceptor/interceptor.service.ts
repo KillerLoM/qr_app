@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 })
 export class InterceptorService implements HttpInterceptor {
 
-  constructor() { }
+  constructor() {
+  }
   intercept(
     req: HttpRequest<any>, 
     next: HttpHandler) : Observable<HttpEvent<any>> {

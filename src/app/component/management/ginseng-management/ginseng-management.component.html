@@ -15,7 +15,7 @@
                     filter_list
                 </span>
             </div>
-            <div type = "button"  class="Add">
+            <div type = "button"  class="Add" (click)="HandleAddGinseng()">
                 <span class="material-symbols-outlined">
                     add
                     </span>
@@ -27,18 +27,19 @@
 <table>
     <tr class="heading-row">
         <th class="order">STT</th>
-        <th class="code">Mã sâm</th>
+        <th class="code">Mã sâm </th>
         <th class="name">Tên sâm</th>
         <th class="date">Ngày tạo</th>
         <th class="link">Sản phẩm liên kết</th>
         <th class="handle">Thao tác</th>
     </tr>
+    
     <tr *ngFor="let item of ginseng; let i = index" class="content-row">
         <td class="order">{{i + 1}}</td>
         <td class="code">{{item?.code}}</td>
         <td class="name">{{item?.name}}</td>
-        <td class="date">{{item?.createdDate|date:'dd/MM/yyyy' }}</td>
-        <td class="link">5</td>
+        <td class="date">{{item?.created_date|date:'dd/MM/yyyy' }}</td>
+        <td class="link">{{item?.appearanceCount}}</td>
         <td class="handle">
             <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
             xmlns="http://www.w3.org/2000/svg">
@@ -94,3 +95,47 @@
         </button>
     </div>
 </div>
+<section class=" z-3 position-fixed">
+<div class="modal_overlay">
+    <div class="modal_inner">
+        <div class="form_heading">
+            <span class="Title">
+                Tạo sâm mới
+              </span> 
+            <span class="material-symbols-outlined" style="color: #22493b;">
+            close
+            </span>
+        </div>
+        <div class="inner">
+            <div class="inputs">
+                <span class="Thng-tin-chung">
+                    Thông tin chung
+                  </span>
+                  <section class="row ">
+                    <div class="input-code">
+                        <label >
+                            Mã sâm
+                            <span style="color: red;">
+                                *
+                            </span>
+                        </label>
+                        <input type="text" style="color: black; " placeholder="Nhập mã sâm của bạn vào đây">
+                    </div>
+                      <div class="input-name">
+                        <label >
+                           Tên sâm
+                            <span style="color: red;">
+                                *
+                            </span>
+                        </label>
+                        <input type="text" style="color: black; " placeholder="Nhập mã sâm của bạn vào đây">
+                      </div>
+                  </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</section>

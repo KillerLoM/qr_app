@@ -117,28 +117,25 @@ export class AdminComponent {
     let email = emailInput.value;
     let password = pwdInput.value;
     let obj = { email, password };
-    this.login.onlogin(obj).subscribe((data: any) => {
-      if (data.status == 'success') {
-        
-        if (saveInput.checked == true) {
-          localStorage.setItem('token', data.token);
-          this.router.navigate(['']);
+    this.login.onlogin(obj).subscribe({
+      next: (data: any) => {
+        if (data.message == 'ok') {
+          var token = data.token;
+          if (saveInput.checked == true) {
+            localStorage.setItem('token', token);
+            this.router.navigate(['']);
+          }
+          else {
+            sessionStorage.setItem('token', token);
+            this.router.navigate(['']);
+          }
         }
-        else {
-          sessionStorage.setItem('token', data.token);
-          this.router.navigate(['']);
-
-        }
-      }
-    }, error => {
-      // Xử lý lỗi tại đây
-      if(error.error == "Admin has not been found !"){
-        this.toastr.error("Admin không tồn tại trong hệ thống !" ,"Lỗi xác thực");
-      }
-      else {
-        this.toastr.error("Sai mật khẩu. Vui lòng kiểm tra và thử lại sau !" ,"Lỗi xác thực");
+      },
+      error: data => {
+        this.toastr.error("Bạn đã nhập sai tài khoản hoặc mật khẩu. Vui lòng kiểm tra và thử lại sau!" ,"Lỗi xác thực");
       }
     });
+    
   }
   loginForm!: FormGroup;
   resetForm!: FormGroup;

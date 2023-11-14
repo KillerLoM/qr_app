@@ -11,20 +11,12 @@ export class LoginService {
     this.url = this.service.getUrlAdmin();
    }
    onlogin(obj: any): Observable<any> {
-    return this.http.post(`${this.url}/authenticate`, obj).pipe(
-      catchError(error => {
-        return throwError(error);
-      })
-    );
+    return this.http.post(`${this.url}/authenticate/authenticate`, obj).pipe();
   }
   validateToken(token: any): Observable<any>{
     return this.http.post(`${this.url}/authenticate/validate-token`,  JSON.stringify(token),{
       responseType: 'text',
       headers: { 'Content-Type': 'application/json' }
-    }).pipe(
-      catchError(error => {
-        return throwError(error);
-      })
-    );
+    }).pipe();
   }
 }

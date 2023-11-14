@@ -401,3 +401,156 @@ input:focus {
 
     font-family: Inter;
   }
+  .z-3{
+    position: fixed !important;
+    top: 0 ;
+    right: 0 ;
+    bottom: 0 ;
+    left: 0 ;
+  }
+  .modal_overlay{
+    position: absolute !important;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.4);
+
+  }
+  .modal_inner {
+    position: relative;
+    width: 727px;
+    height: 612px;
+    // margin: 41px 342px 144px 120px;
+    border-radius: 12px;
+    background-color: #fff;
+    margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+  }
+  $radius: 12px;
+  .form_heading  {
+    width: 727px;
+    height: 56px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 16px;
+    padding: 16px;
+    background-color: #e2f1ef;
+    border-top-right-radius: $radius;
+    border-top-left-radius: $radius;
+  }
+
+  .Title {
+    height: 19px;
+    flex-grow: 1;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #22493b;
+  }
+  .inner {
+    width: 727px;
+    height: 456px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 24px;
+    margin: 16px 0 12px;
+    padding: 0;
+  }
+  .Thng-tin-chung {
+    width: 110px;
+    height: 17px;
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #22493b;
+  }
+  .inputs {
+    width: 727px;
+    height: 173px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 0 16px;
+  }
+  .input-code {
+    width: 199px;
+    height: 62px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 8px 8px 8px 16px;
+    border-radius: 4px;
+    border: solid 1px #c9cdd2;
+  }
+  label {
+    width: 46px;
+    height: 18px;
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3b927d;
+  }
+  label {
+    width: 53px;
+    height: 18px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 0;
+  }
+
+  .input-name{
+    height: 62px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 8px 8px 8px 16px;
+    border-radius: 4px;
+    border: solid 1px #c9cdd2;
+  }
+    .row {
+    height: 62px;
+    align-self: stretch;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 0;
+  }

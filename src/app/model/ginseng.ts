@@ -1,14 +1,16 @@
 export interface Ginseng {
-    code: String,
+    id: number,
     name: string,
-    createdDate: Date,
-    source: string,
-    effect: string, 
-    moreInformation: string,
+    certificate: string,
+    created_date: Date,
+    code: String,
+    effect: string,
+    img: string,
     img1: string,
     img2: string,
     img3: string,
     img4: string,
-    img5: string,
-    certificate: string
+    source: string,
+    more_info: string,
+    appearanceCount: number
 }

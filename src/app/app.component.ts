@@ -16,20 +16,21 @@ export class AppComponent {
     {token = localStorage.getItem('token');}
     if (token != null) {
       console.log(token);
-      this.login.validateToken({token:token}).subscribe((data:any) => {
-        console.log(data);
-        if(data == 'valid'){
+      this.login.validateToken({token:token}).subscribe({
+        next: (data:any) => {
+          if(data == "true"){
           this.router.navigate(['admin']);
-          
         }
-        else {
+      },
+      error:data =>{
+        if(data.error == "Token is not valid"){
           localStorage.clear();
           sessionStorage.clear();
           this.router.navigate(['login']);
         }
       }
-      )
-    }
+    });
+  }
     else if(token == null) {
       this.router.navigate(['login']);
     } 

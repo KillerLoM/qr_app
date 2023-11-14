@@ -14,7 +14,7 @@ export class GetGinsengsService {
   }
   getListGinseng(size: number, page: number): Observable<any>{
     let params = new HttpParams().set('page', page.toString()).set('size', size.toString());
-    return this.http.get(this.url + 'list',{params: params}).pipe(
+    return this.http.get(this.url + 'get',{params: params}).pipe(
       catchError( error =>{
         return throwError(error);
       })

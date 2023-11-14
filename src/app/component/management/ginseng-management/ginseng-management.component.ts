@@ -24,7 +24,18 @@ export class GinsengManagementComponent {
   isPrev = false;
   constructor(@Inject(GetGinsengsService) private getListGinseng: GetGinsengsService, private pagination: PaginationService) {
     this.getListGinseng.getListGinseng(this.numberOfItems, 0).subscribe((data: any) => {
-      this.ginseng = data.ginseng;
+      this.ginseng = data.ginsengs;
+      console.log(this.ginseng?.length);
+      if(this.ginseng == null){
+
+      }
+      else{
+        for(let i of this.ginseng){
+          console.log(i.code);
+          console.log(i.name);
+          console.log(i?.created_date);
+        }
+      }
       this.amount = data.amount + " Loại sâm";
       this.size = data.amount;
       this.pagination.init(this.size, this.numberOfItems);
@@ -50,7 +61,8 @@ export class GinsengManagementComponent {
   GetList(page: number, number: any ){
     page--;
     this.getListGinseng.getListGinseng(number, page).subscribe((data: any) => {
-      this.ginseng = data.ginseng;
+      this.ginseng = data.ginsengs;
+      console.log(this.ginseng);
       this.amount = data.amount + " Loại sâm";
       this.size = data.amount;
     });
@@ -74,5 +86,8 @@ export class GinsengManagementComponent {
       this.ginseng?.sort((a,b) => a.name.toString().localeCompare(b.name.toString()));
       this.isSorted = true;
     }
+  }
+  HandleAddGinseng(){
+    alert(1);
   }
 }
