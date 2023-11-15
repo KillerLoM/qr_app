@@ -1,4 +1,5 @@
-
+@import url('../../../app.component.scss');
+@import '../../../app.component.scss';
 $main-height: 40px;
 $main-width: 1250px;
 
@@ -417,7 +418,7 @@ input:focus {
   }
   .modal_inner {
     position: relative;
-    width: 727px;
+    width: 735px;
     height: 612px;
     // margin: 41px 342px 144px 120px;
     border-radius: 12px;
@@ -429,7 +430,7 @@ input:focus {
   }
   $radius: 12px;
   .form_heading  {
-    width: 727px;
+    width: 100%;
     height: 56px;
     display: flex;
     flex-direction: row;
@@ -448,7 +449,7 @@ input:focus {
     flex-grow: 1;
     font-family: Inter;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 700;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.2;
@@ -465,11 +466,12 @@ input:focus {
     align-items: flex-start;
     gap: 24px;
     margin: 16px 0 12px;
+
     padding: 0;
   }
   .Thng-tin-chung {
     width: 110px;
-    height: 17px;
+    height: 15px;
     flex-grow: 0;
     font-family: Lexend;
     font-size: 14px;
@@ -622,15 +624,163 @@ input:focus {
     color: #9ea4aa;
   }
   .text-area {
-    height: 100px;
-    flex-grow: 1;
+    @include text-area-init;
+  }
+  .attach-image{
+    @include attach-zone;
+  }
+  .attachment-atom {
+    width: 56px;
+    height: 56px;
+    flex-grow: 0;
+    border-radius: 4px;
+    border: dashed 2px #3b927d;
+    justify-content: center;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+  }
+  .active{
+    width: 56px;
+    height: 56px;
+    flex-grow: 0;
+    border-radius: 4px;
+    border: solid 1px var(--grayscale-gray-500);
+  }
+  .upload {
+    height: 72px;
+    align-self: stretch;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 4px;
-    padding: 8px 8px 8px 16px;
-    border-radius: 4px;
-    border: solid 1px #e8ebed;
+    gap: 95px;
+    padding: 8px 0;
   }
-  
+
+  .render-atom{
+    position: fixed;
+    width: 56px;
+    height: 56px;
+    flex-grow: 0;
+    border-radius: 4px;
+    border: none;
+  }
+  .deleted {
+    width: 20px;
+    position: relative;
+    top: -39%;
+    right: -5%;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0 0px 10px 45px;
+    padding: 2px;
+    border-radius: 100px;
+    background-color: #d32f2f;
+  }
+  img.clear {
+    width: 16px;
+    height: 16px;
+    flex-grow: 0;
+    object-fit: contain;
+    border-radius: 100px;
+  }
+  .add {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  .action-bar {
+    width: 100%;
+    height: 72px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 12px 0 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 16px;
+    border: solid 1px #e2f1ef;
+  }
+  .right-actions {
+    height: 40px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+  }
+  .Buttons-add {
+    width: 70px;
+    height: 40px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 1px 16px;
+    border-radius: 8px;
+    background-color: #22493b;
+  }
+  .add {
+    width: 38px;
+    height: 21px;
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+  }
+  .Buttons-cancels {
+    width: 60px;
+    height: 40px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 1px 16px;
+    border-radius: 8px;
+  }
+  .cancel{
+    width: 28px;
+    height: 21px;
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    color: #22493b;
+  }
+  button.material-symbols-outlined:hover{
+    background-color: red !important;
+    color: white !important;
+    border-radius: $radius;
+  }
+  .render-atom-new{
+    position: fixed;
+    width: 56px;
+    height: 56px;
+    flex-grow: 0;
+    border-radius: 4px;
+    border: none;
+  }

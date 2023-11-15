@@ -102,9 +102,9 @@
             <span class="Title">
                 Tạo sâm mới
               </span> 
-            <span class="material-symbols-outlined" style="color: #22493b;">
+            <button class="material-symbols-outlined"  style="color: #22493b; background-color: #e2f1ef; border: none;" type = "button">
             close
-            </span>
+            </button>
         </div>
         <div class="inner">
             <div class="inputs">
@@ -164,7 +164,6 @@
                             </span>
                         </label>
                         <div class="Placeholder" type="button">
-                            <!-- <input   placeholder="Tải giấy chứng nhận lên"> -->
                             <span class="Placeholder">
                                 Tải giấy chứng nhận lên
                               </span>
@@ -180,27 +179,72 @@
                     Thông tin chi tiết
                   </span>
                   <div class="row ">
-                    <div class="input-code" style="width: 325px;height: 100px;">
+                    <div class="input-code" style="width: 345px;height: 100px;">
                         <label style="color:  #454c53; width: 150px;" >
                             Tác dụng của sâm
                             <span style="color: red;">
                                 *
                             </span>
                         </label>
-                        <input type="text" style="color: black; width: 150px;; " placeholder="Nhập các tác dụng khác của sâm tại đây">
+                        <textarea class ="text-area" placeholder="Nhập mã sâm của bạn vào đây"></textarea>
                     </div>
-                      <div class="input-name" style="width: 325px;height: 100px;">
+                      <div class="input-name" style="width: 335px;height: 100px;">
                         <label style="color:  #454c53; width: 150px;" >
                            Thông tin khác (nếu có)
                         </label>
-                        <input type="text" style="color: black; " placeholder="Nhập mã sâm của bạn vào đây">
+                        <textarea class ="text-area" placeholder="Nhập mã sâm của bạn vào đây"></textarea>
                       </div>
-                  </div>
-                  
+                  </div>  
             </div>
+            <div class="inputs">
+                  <div class="row ">
+                    <div class="attach-image">
+                        <label style="color:  #3b927d; width: 150px;" >
+                            Hình ảnh sâm (tối đa 5 ảnh)
+                            <span style="color: red;">
+                                *
+                            </span>
+                        </label>
+                        <div class="upload">
+
+                            <div id="image-render" class = "attachment-atom active" *ngFor="let image of imagesArray; let i = index; "  >  
+                                <img [src]="image" alt="" class="render-atom"> 
+                                <div class="deleted" type ="button" (click)="deleteImage(i)" >
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="clear">
+                                        <path d="M12.2 3.807a.664.664 0 0 0-.94 0L8 7.06 4.74 3.8a.664.664 0 1 0-.94.94L7.06 8 3.8 11.26a.664.664 0 1 0 .94.94L8 8.94l3.26 3.26a.664.664 0 1 0 .94-.94L8.94 8l3.26-3.26a.668.668 0 0 0 0-.933z" fill="#fff"/>
+                                    </svg>
+                                </div>
+                                
+                            </div>
+                            <div class = "attachment-atom " *ngIf="isRender"  >   
+                                <input id = "button" type="file" accept="image/*" (change)="handleUploadImage($event)" hidden>
+                                <svg type = "button" (click)="uploadImage()"  class = "add" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z" fill="#22493B"/>
+                                </svg>
+                                
+                            </div>
+                        </div>
+                    </div>
+                  </div>  
+            </div>
+
+        </div>
+        <div class="action-bar">
+            <div class="right-actions">
+                <div class="Buttons-cancels btn btn-light" type = "button">
+                    <span class="cancel">
+                        Hủy
+                      </span>
+                </div>
+                <div class="Buttons-add btn btn-success" type = "button">
+                    <span class="add">
+                        Thêm
+                      </span>
+                </div>
+
+            </div> 
         </div>
     </div>
 </div>
-
 
 </section>

@@ -14,6 +14,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { ManagementComponent } from './component/management/management.component';
 import { InterceptorService } from './interceptor/interceptor.service';
 import { GinsengManagementComponent } from './component/management/ginseng-management/ginseng-management.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule} from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +26,8 @@ import { GinsengManagementComponent } from './component/management/ginseng-manag
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

@@ -1,0 +1,31 @@
+@mixin text-area-init{
+    font-family: Lexend;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    resize: none ;
+    outline: none;
+    color: black; 
+    width: 100%; 
+    height: 70px;
+    border: none; 
+    resize: none;
+    :focus{
+      border: none;
+    }
+}
+@mixin attach-zone{
+    height: 110px;
+    width: 700px;
+    flex-grow: 1;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 8px 8px 8px 16px;
+    border-radius: 4px;
+    border: solid 1px #c9cdd2;
+}
