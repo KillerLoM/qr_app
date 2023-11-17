@@ -14,8 +14,15 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { ManagementComponent } from './component/management/management.component';
 import { InterceptorService } from './interceptor/interceptor.service';
 import { GinsengManagementComponent } from './component/management/ginseng-management/ginseng-management.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MatInputModule } from '@angular/material/input';
+import {  MatFormFieldModule } from '@angular/material/form-field';
+import {  MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,10 +33,9 @@ import { MatNativeDateModule} from '@angular/material/core';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatCardModule,
     BrowserAnimationsModule,
     NgOtpInputModule,
     ToastrModule.forRoot({            
@@ -42,14 +48,23 @@ import { MatNativeDateModule} from '@angular/material/core';
     preventDuplicates: false,
     timeOut: 10000}
     ),
-      
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule,
 
   ],
   providers: [AppService, LoginService, {
-    provide: HTTP_INTERCEPTORS,
+    provide: HTTP_INTERCEPTORS, 
     useClass: InterceptorService,
-    multi: true
-  }],
+    multi: true,
+
+  },
+  { provide: MAT_DATE_LOCALE, useValue: 'vi-VN' }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  
+}
+

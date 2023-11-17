@@ -1,7 +1,7 @@
 export interface Ginseng {
     id: number,
     name: string,
-    certificate: string,
+    certificate: File,
     created_date: Date,
     code: String,
     effect: string,

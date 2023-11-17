@@ -1,3 +1,7 @@
+@use '@angular/material' as mat;
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@include mat.datepicker-date-range-colors(
+  hotpink, teal, yellow, purple);
 @mixin text-area-init{
     font-family: Lexend;
     display: flex;

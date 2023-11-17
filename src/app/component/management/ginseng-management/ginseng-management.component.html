@@ -1,7 +1,8 @@
-<div  class="title">
+<div  class="title" >
     <h1 class="titleHeading">
         Danh sách Sâm
     </h1>
+
     <div class="Frame-1864">
         <h2 class="-loi-sm">{{amount}}</h2>
         <div class="right-actions">
@@ -95,17 +96,20 @@
         </button>
     </div>
 </div>
-<section class=" z-3 position-fixed section-placeholder">
+
+  
+<section class=" z-3 position-fixed section-placeholder" *ngIf="isAdd">
 <div class="modal_overlay">
     <div class="modal_inner">
         <div class="form_heading">
             <span class="Title">
                 Tạo sâm mới
               </span> 
-            <button class="material-symbols-outlined"  style="color: #22493b; background-color: #e2f1ef; border: none;" type = "button">
+            <button class="material-symbols-outlined" id="cancel" style="color: #22493b; background-color: #e2f1ef; border: none;" type = "button" (click)="handleClose()">
             close
             </button>
         </div>
+        <form [formGroup]="addForm" novalidate>
         <div class="inner">
             <div class="inputs">
                 <span class="Thng-tin-chung">
@@ -119,7 +123,7 @@
                                 *
                             </span>
                         </label>
-                        <input type="text" style="color: black; " placeholder="Nhập mã sâm của bạn vào đây">
+                        <input type="text" style="color: black; " placeholder="Nhập mã sâm của bạn vào đây" formControlName="code" required #code>
                     </div>
                       <div class="input-name">
                         <label >
@@ -128,7 +132,7 @@
                                 *
                             </span>
                         </label>
-                        <input type="text" style="color: black; " placeholder="Nhập mã sâm của bạn vào đây">
+                        <input type="text" style="color: black; " placeholder="Nhập tên sâm của bạn vào đây" formControlName="name" required #name >
                       </div>
                   </div>
                   <div class="row ">
@@ -140,12 +144,14 @@
                             </span>
                         </label>
                         <div class ="Placeholder">
-                            <input class = "Placeholder"type="text" style="color: black; " placeholder="Nhập ngày tạo"> 
-                            <svg class="date_range" width="24" height="24" viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
+                            <input class = "Placeholder"type="text" style="color: black; " placeholder="Nhập ngày tạo" id="date" #date > 
+                            <svg class="date_range" width="24" height="24" viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg" type="button" (click)="toggleCalendar()">
                                 <path d="M19 4h-1V3c0-.55-.45-1-1-1s-1 .45-1 1v1H8V3c0-.55-.45-1-1-1s-1 .45-1 1v1H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 15c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1V9h14v10zM7 11h2v2H7v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2z" fill="#9EA4AA"/>
                             </svg>
+                            <mat-card class="demo-inline-calendar-card z-3" *ngIf="showCalendar" >
+                                <mat-calendar [(selected)]="selected" (selectedChange)="onDateSelected($event)"></mat-calendar>
+                              </mat-card>
                         </div>
-
                     </div>
                       <div class="input-resource">
                         <label style="color:  #454c53; width: 140px;" >
@@ -154,7 +160,7 @@
                                 *
                             </span>
                         </label>
-                        <input type="text" style="color: black; " placeholder="Nhập nguồn gốc ở đây">
+                        <input type="text" style="color: black; " placeholder="Nhập nguồn gốc ở đây" #source formControlName="source" required >
                       </div>
                       <div class="input-certi">
                         <label style="color:  #454c53; width: 140px;" >
@@ -163,13 +169,14 @@
                                 *
                             </span>
                         </label>
-                        <div class="Placeholder" type="button">
-                            <span class="Placeholder">
-                                Tải giấy chứng nhận lên
+                        <div class="Placeholder" type="button" (click)="uploadCerti()">
+                            <span class="Placeholder" id="display" >
+                                {{name_certi}}
                               </span>
                             <svg  style="margin-left: 15px;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M17.253 16H6.673c-2.09 0-3.95-1.53-4.15-3.61A3.998 3.998 0 0 1 6.502 8h12.36c1.31 0 2.5.94 2.63 2.24a2.5 2.5 0 0 1-2.49 2.76h-10.5c-.55 0-1-.45-1-1s.45-1 1-1h8.75c.41 0 .75-.34.75-.75s-.34-.75-.75-.75h-8.61c-1.31 0-2.5.94-2.63 2.24a2.5 2.5 0 0 0 2.49 2.76h10.33c2.09 0 3.95-1.53 4.15-3.61a3.993 3.993 0 0 0-3.98-4.39H6.733c-2.87 0-5.44 2.1-5.71 4.96a5.505 5.505 0 0 0 5.48 6.04h10.75c.41 0 .75-.34.75-.75s-.34-.75-.75-.75z" fill="#9EA4AA"/>
-                            </svg>    
+                            </svg> 
+                            <input id = "certi" type="file" accept="pdf/*" (change)="handleUploadPdf($event)" hidden>   
                         </div>
                       </div>
                   </div>
@@ -186,19 +193,22 @@
                                 *
                             </span>
                         </label>
-                        <textarea class ="text-area" placeholder="Nhập mã sâm của bạn vào đây"></textarea>
+                        <textarea class ="text-area" placeholder="Nhập mã sâm của bạn vào đây" formControlName="effect" required  #effect ></textarea>
                     </div>
                       <div class="input-name" style="width: 335px;height: 100px;">
                         <label style="color:  #454c53; width: 150px;" >
                            Thông tin khác (nếu có)
                         </label>
-                        <textarea class ="text-area" placeholder="Nhập mã sâm của bạn vào đây"></textarea>
+                        <textarea class ="text-area" placeholder="Nhập mã sâm của bạn vào đây" #more ></textarea>
                       </div>
                   </div>  
             </div>
-            <div class="inputs">
+            <div class="inputs"  >
                   <div class="row ">
-                    <div class="attach-image">
+                    <div (drop)="handleImageDrop($event)" (dragover)="allowDrop($event)" (dragenter)="handleDragEnter($event)" id="drag" >
+                      
+                    
+                    <div class="attach-image" >
                         <label style="color:  #3b927d; width: 150px;" >
                             Hình ảnh sâm (tối đa 5 ảnh)
                             <span style="color: red;">
@@ -214,19 +224,22 @@
                                         <path d="M12.2 3.807a.664.664 0 0 0-.94 0L8 7.06 4.74 3.8a.664.664 0 1 0-.94.94L7.06 8 3.8 11.26a.664.664 0 1 0 .94.94L8 8.94l3.26 3.26a.664.664 0 1 0 .94-.94L8.94 8l3.26-3.26a.668.668 0 0 0 0-.933z" fill="#fff"/>
                                     </svg>
                                 </div>
-                                
+
                             </div>
-                            <div class = "attachment-atom " *ngIf="isRender"  >   
+                            <div class = "attachment-atom" *ngIf="isRender">   
                                 <input id = "button" type="file" accept="image/*" (change)="handleUploadImage($event)" hidden>
-                                <svg type = "button" (click)="uploadImage()"  class = "add" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg type = "button" (click)="uploadImage()"  class = "add-image" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z" fill="#22493B"/>
                                 </svg>
-                                
+
                             </div>
+
                         </div>
+
                     </div>
                   </div>  
             </div>
+        </div>
 
         </div>
         <div class="action-bar">
@@ -236,14 +249,16 @@
                         Hủy
                       </span>
                 </div>
-                <div class="Buttons-add btn btn-success" type = "button">
+                <button [disabled]="!addForm.valid" class="Buttons-add btn btn-success" type = "button" (click)="handleAddGinseng(code, name, date, source, effect, more)">
                     <span class="add">
                         Thêm
                       </span>
-                </div>
+                      
+                    </button>
 
             </div> 
         </div>
+    </form>
     </div>
 </div>
 

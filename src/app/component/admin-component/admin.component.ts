@@ -35,7 +35,8 @@ export class AdminComponent {
   temp = "";
   constructor(private appService: AppService, 
     @Inject(LoginService) private login: LoginService, 
-   private toastr: ToastrService, private router: Router,
+   private toastr: ToastrService, 
+   private router: Router,
    @Inject(ForgetPasswordService) private forget: ForgetPasswordService) { }
   public changeToggle() {
     const pwdType = document.getElementById("pwd");
@@ -77,7 +78,6 @@ export class AdminComponent {
         if (response == "Email is not created or wrong. Please check and try again") {
           this.isLoading = false;
           this.toastr.error("Email bạn vừa nhập có vẻ không đúng. Vui lòng kiểm tra và thử lại", "Email chưa được gửi", {
-
           });
         }
         else {
