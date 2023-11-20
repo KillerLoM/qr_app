@@ -15,6 +15,7 @@ export class ManagementComponent {
   active : HTMLElement | null = null;
   hide = true;
   iconList = '';
+  isWine = false;
   constructor(private appService: AppService){
     this.iconList = 'chevron_right';
     this.Type = " Chào mừng admin đã đến với trang web quản lý sâm. Phía dưới là video hướng dẫn: ";
@@ -50,12 +51,23 @@ export class ManagementComponent {
     console.log(this.active?.className);
   }
   ginsengInput(){
+    this.reset();
     this.isGinseng = true;
     this.isOn = true;
     document.getElementById("ginseng")?.setAttribute("style","font-weight : bold;");
   }
+  wineInput(){
+    this.reset();
+    this.isWine = true;
+    this.isGinseng = false;
+    this.isOn = true;
+    document.getElementById("wine")?.setAttribute("style","font-weight : bold;");
+  }
   reset(){
     this.isGinseng = false;
+    this.isWine = false;
+    document.getElementById("ginseng")?.setAttribute("style","font-weight : normal;");
+    document.getElementById("wine")?.setAttribute("style","font-weight : normal;");
   }
   public HandleEvent($event: any) : void{
     this.show = $event;

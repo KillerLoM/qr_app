@@ -1,7 +1,6 @@
 
 @import url('../../../app.component.scss');
 @import '../../../app.component.scss';
-@import '../../../ginseng_wine.common.scss';
 
 $main-height: 40px;
 $main-width: 1250px;
@@ -17,6 +16,22 @@ $main-width: 1250px;
     padding: 8px;
 }
 
+@mixin properties{
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    gap: 8px;
+    padding: 8px;
+    font-family: Lexend;
+    color: #22493b;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+}
 .heading-row{
     @include style_table;
     background-color: #b7ded6;
@@ -32,7 +47,7 @@ $main-width: 1250px;
     @include properties;
 }
 .code{
-    width: 8%;
+    width: 16%;
     outline:b7ded6 ;
     @include properties;
 }
@@ -42,7 +57,7 @@ $main-width: 1250px;
     @include properties;
 }
 .date{
-    width: 30%;
+    width: 8%;
     outline:b7ded6 ;
     @include properties;
 }
@@ -56,10 +71,93 @@ $main-width: 1250px;
     width: 10%;
     outline:b7ded6 ;
     @include properties;
+    
+}
+.Frame-35 {
+  width: 100px;
+  height: 40px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+
+  background-color: #fff;
+}
+.handle-status{
+  outline:b7ded6 ;
+  @include properties;
+  justify-content: center !important;
+}
+.Content-unactive {
+  width: 87px;
+  height: 12px;
+  flex-grow: 0;
+  font-family: Lexend;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  justify-content: center;
+  text-align: center;
+  text-align: center;
+  color: var(--grayscale-gray-500);
+}
+.chips-atom {
+  height: 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 8px;
+  border-radius: 8px;
+  background-color: #d5e5d6;
+}
+  .Content-active {
+    width: 74px;
+    height: 12px;
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: center;
     justify-content: center;
+    text-align: center;
+    color: #2e7d32;
+  }
+.content {
+  width: 28px;
+  height: 24px;
+  flex-grow: 0;
+  font-family: Lexend;
+  font-size: 16px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: center;
+  color: #26282b;
+}
+.authenticate{
+  width: 15%;
+  outline:b7ded6 ;
+  @include properties;
+  justify-content: center;
 }
 table{
-  @include style_table_main;
+    width: $main-width;
+    box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden; // dòng mới
 }
 td {
     border-right: solid 1px #e2f1ef;
@@ -70,13 +168,44 @@ td {
 }
 
 .search-bar {
- @include search;
+    width: 309px;
+    height: 40px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 1px 16px;
+    border-radius: 8px;
+    border: solid 1px #8ac9bb;
 }
 .all{
-  @include main;
+    
+    display: flex;
+    display: flex;
+    flex-direction: column;
+  
+    justify-content: flex-start;
+  
+    align-items: flex-start;
+    gap: 16px;
+    padding: 0;
 }
 .titleHeading {
-  @include title-heading
+    flex-grow: 0;
+    font-family: Lexend;
+    font-size: 32px;
+    width: 430px;
+    padding-bottom: 2%;
+    height: 38px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #22493b;
 }
 .material-symbols-outlined{
 

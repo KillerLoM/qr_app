@@ -16,5 +16,9 @@ export class AppService {
     let url_ginseng = this.url + '/ginseng/';
     return url_ginseng;
   }
+  getUrlWine(){
+    let url_ginseng = this.url + '/wine/';
+    return url_ginseng;
+  }
 
 }

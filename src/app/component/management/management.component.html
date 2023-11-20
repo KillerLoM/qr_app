@@ -42,7 +42,7 @@
 
                         <div class="active-spot"></div>
                     </li>
-                    <li class="menu-item">Sản phẩm</li>
+                    <li id="wine" (click)="wineInput()" class="menu-item">Sản phẩm</li>
                 </ul>
             </div>
             <div type="button" class="menu-certi" id="certificate" (click)="HandleNews($event)">
@@ -86,7 +86,9 @@
                 </h1>
 
             </div>
-            <app-ginseng-management *ngIf="isGinseng" (data)="HandleEvent($event)"></app-ginseng-management>
+            <!-- <app-ginseng-management *ngIf="isGinseng" (data)="HandleEvent($event)"></app-ginseng-management> -->
+             <!-- <app-wine-management *ngIf="isWine" (data)="HandleEvent($event)"></app-wine-management> -->
+             <app-wine-management></app-wine-management>
         </div>
 
     </div>
