@@ -1,7 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 import { elementAt } from 'rxjs';
 import { AppService } from '../../services/app-service/app.service';
-import { GetGinsengsService } from 'src/app/services/api-service/ginseng-service/get-ginsengs.service';
 import { Ginseng } from '../../model/ginseng';
 @Component({
   selector: 'app-management',
