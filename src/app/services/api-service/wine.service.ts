@@ -26,4 +26,12 @@ export class WineService {
       return throwError(error);
     }))
   }
+  deleteWine(codewine: string): Observable<any> {
+    let params = new HttpParams().set('code', codewine);
+    return this.http.delete(this.url + 'delete', {params, responseType: 'text'})
+    .pipe(catchError((error) => {
+      return throwError(error);
+    })
+  );
+  }
 }

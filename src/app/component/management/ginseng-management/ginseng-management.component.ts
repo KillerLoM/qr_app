@@ -93,7 +93,7 @@ export class GinsengManagementComponent implements OnInit {
         this.setUp();
       },
       (error) => {
-        this.router.navigate(['']);
+        this.router.navigate(['login']);
       }
     );
   }
