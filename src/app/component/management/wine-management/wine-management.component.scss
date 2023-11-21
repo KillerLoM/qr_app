@@ -530,7 +530,7 @@ input:focus {
   .modal_inner {
     position: relative;
     width: 735px;
-    height: 612px;
+    height: 650px;
     // margin: 41px 342px 144px 120px;
     border-radius: 12px;
     background-color: #fff;
@@ -622,7 +622,7 @@ input:focus {
     margin-left: 2%;
   }
   label {
-    width: 46px;
+    width: 100px;
     height: 18px;
     flex-grow: 0;
     font-family: Lexend;
@@ -636,7 +636,7 @@ input:focus {
     color: #3b927d;
   }
   label {
-    width: 53px;
+    width: 90px;
     height: 18px;
     flex-grow: 0;
    
@@ -673,8 +673,22 @@ input:focus {
     gap: 16px;
     padding: 0;
   }
-  .input-resource,
-  .input-certi{
+  .QRCODE {
+    height: 62px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 8px 8px 8px 16px;
+    border-radius: 4px;
+    border: solid 1px #e8ebed;
+    background-color: #f7f8f9;
+    width: 30%;
+
+  }
+  .input-resource{
     
     height: 62px;
     width: 222px;
@@ -997,18 +1011,34 @@ input:focus {
   letter-spacing: normal;
   text-align: left;
   color: #9ea4aa;
-  width: 50px;
+  width: 100%;
 }
-.input-type,
-select.form-select-sm {
-  height: 24px; /* Set the height as needed */
-  margin-right: 16px; /* Adjust the margin as needed */
-}
-select.form-select-sm {
-  flex-shrink: 0 !important;
+.inputGinseng {
   height: 24px;
-  width: auto;
-  flex-grow: 1 !important;
-  // object-fit: contain; 
+  align-self: stretch;
+  flex-grow: 0;
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  padding: 0;
+}
+.input-chose{
+  width: 24px;
+  height: 24px;
+  flex-grow: 0;
+  object-fit: contain;
+}
+.attach-zone {
+  height: 110px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 8px 8px 8px 16px;
+  border-radius: 4px;
+  border: solid 1px #c9cdd2;
 }

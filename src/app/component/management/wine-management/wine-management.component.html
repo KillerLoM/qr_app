@@ -253,7 +253,7 @@
                 </div>
               </div>
               <div class="input-resource">
-                <label style="color: #454c53; width: 140px">
+                <label style="color: #3b927d; width: 140px">
                   Đơn vị
                   <span style="color: red"> * </span>
                 </label>
@@ -267,7 +267,7 @@
                   required
                 />
               </div>
-              <div class="input-certi">
+              <div class="QRCODE">
                 <label style="color: #454c53; width: 140px">
                   Mã QR
                   <span style="color: red"> * </span>
@@ -289,6 +289,31 @@
               Liên kết với mã sâm (nếu có)
 
             </label>
+            <div class="inputGinseng" >
+              <input type="text" placeholder="Chọn hoặc tìm kiếm mã sâm" class="input-type" list="scripts">
+              <svg class="input-chose" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="m8.125 9 3.88 3.88L15.885 9a.996.996 0 1 1 1.41 1.41L12.705 15a.996.996 0 0 1-1.41 0l-4.59-4.59a.996.996 0 0 1 0-1.41c.39-.38 1.03-.39 1.42 0z" fill="#9EA4AA"/>
+                </svg>
+              <datalist id="scripts">
+                <select 
+                class="form-select form-select-sm"
+                aria-label="Small select example"
+                (change)="HandleClick($event)"
+               >               
+                <option value="" disabled selected hidden> </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              </datalist>
+            </div>
             <!-- <input type="text" placeholder="Chọn hoặc tìm kiếm mã sâm" class="input-type">
             <select 
             class="form-select form-select-sm"
@@ -308,29 +333,8 @@
             <option value="10">10</option>
           </select>
            -->
-           <input type="text" placeholder="Chọn hoặc tìm kiếm mã sâm" class="input-type" list="scripts">
-           <datalist id="scripts">
-            <svg class="input-chose" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="m8.125 9 3.88 3.88L15.885 9a.996.996 0 1 1 1.41 1.41L12.705 15a.996.996 0 0 1-1.41 0l-4.59-4.59a.996.996 0 0 1 0-1.41c.39-.38 1.03-.39 1.42 0z" fill="#9EA4AA"/>
-              </svg>
-            <select 
-            class="form-select form-select-sm"
-            aria-label="Small select example"
-            (change)="HandleClick($event)"
-           >
-            <option value="" disabled selected hidden> </option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-          </datalist>
+           
+           
           
             <!--  -->
             <!-- <ul class="link-select">
@@ -378,7 +382,6 @@
               </div>
             </div>
           </div>
-          <div class="inputs">
             <div class="row">
               <div
                 (drop)="handleImageDrop($event)"
@@ -450,7 +453,6 @@
               </div>
             </div>
           </div>
-        </div>
         <div class="action-bar z-2">
           <div class="right-actions">
             <div class="Buttons-cancels btn btn-light" type="button" (click)="closeFunction()">

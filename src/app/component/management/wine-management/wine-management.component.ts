@@ -159,7 +159,7 @@ export class WineManagementComponent {
     this.isPrev = this.pagination.isPrev;
     this.currentPage = this.pagination.currentPage;
     this.GetList(this.currentPage, this.numberOfItems);
-    this.isAdd = false;
+    this.isAdd = true;
     // this.name_certi = 'Tải giấy chứng nhận lên'
   }
   toggleCalendar(){
@@ -198,5 +198,13 @@ export class WineManagementComponent {
   }
   handleSend(){
 
+  }
+  HandleSelect(){
+    let button = document.getElementById("linkGinseng");
+    if(button){
+      button.focus();
+      button.focus();
+    }
+    
   }
 }
