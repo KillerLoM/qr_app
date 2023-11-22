@@ -34,4 +34,26 @@ export class WineService {
     })
   );
   }
+  addProduct(wine: any, files: File[]): Observable<any> {
+    const formData: FormData = new FormData();
+    const blob = new Blob([JSON.stringify(wine)], {type: 'application/json'});
+    formData.append('wine',blob);
+    for (let i = 0; i < Math.min(files.length, 5); i++) {
+      formData.append('files', files[i]);
+    }
+    console.log(formData);
+    return this.http.post(this.url + 'add', formData,{responseType: 'text'})
+    .pipe(catchError((error) => {
+      return throwError(error);
+    })
+  );
+  }
+  getProduct(code: string): Observable<any> {
+    let params = new HttpParams().set('code', code);
+    return this.http.get(this.url + 'getProduct',{params: params}).
+    pipe(catchError((error) => {
+      return throwError(error);
+    }))
+  }
+
 }

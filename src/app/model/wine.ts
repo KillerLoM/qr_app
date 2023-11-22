@@ -5,13 +5,17 @@ export interface Wine {
     created_date: Date,
     codewine: String,
     effect: string,
-    img: string | null,
-    img1: string | null,
-    img2: string | null,
-    img3: string | null,
-    img4: string | null,
+    moreinfo: string,
+    image: string | null,
+    image1: string | null,
+    image2: string | null,
+    image3: string | null,
+    image4: string | null,
     volumewine: string,
+    cc: number,
     otp: string,
     ginsnegId: number,
-    ginsengCode: string
+    ginseng: {
+        code: String,
+    }
 }

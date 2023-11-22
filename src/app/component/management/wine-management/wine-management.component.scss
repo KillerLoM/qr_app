@@ -284,6 +284,17 @@ td {
     gap: 8px;
     padding: 0;
 }
+.right-actionsDeleted {
+  width: 1060px;
+  height: 40px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  padding: 0;
+}
 .search-bar {
 
     width: 309px;
@@ -1187,4 +1198,18 @@ input:focus {
   letter-spacing: normal;
   text-align: left;
   color: #c9cdd2;
+}
+.deletedButton {
+  width: 100%;
+  height: 72px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 16px;
+  margin: 12px 0 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 16px;
+  border: solid 1px #e2f1ef;
 }

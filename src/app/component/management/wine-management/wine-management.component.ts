@@ -44,7 +44,7 @@ export class WineManagementComponent implements OnInit {
   imagesEdit: any[] | null = null;
   allowDropImages = true;
 
-  loading = false;
+  loading = true;
   showCalendar = false;
   isRender = true;
   isDelete = false;
@@ -63,7 +63,7 @@ export class WineManagementComponent implements OnInit {
   item2: any;
   item3: any;
   currentPage = 1;
-  unitValue: number = 0;
+  unitValue: number = 0 ;
   newValue : number = 0;
   codeWine: any;
   titleForm = '';
@@ -110,7 +110,7 @@ export class WineManagementComponent implements OnInit {
     private http: HttpClient,
     private datePipe: DatePipe,
   ) {
-
+    
     this.wineService
       .getListWine(this.numberOfItems, 0)
       .subscribe((data: any) => {
@@ -120,8 +120,10 @@ export class WineManagementComponent implements OnInit {
         this.display = this.newValue + " cc";
         this.pagination.init(this.size, this.numberOfItems);
         this.http.get('http://localhost:5050/admin/ginseng/get/code').subscribe((data: any) => {
+          
           this.ArrayGinseng = data;
         })
+        this.loading = false;
         this.setUp();
       });
 
@@ -131,7 +133,7 @@ export class WineManagementComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       code: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
-      unit: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]\d*$/)]),
+      unit: new FormControl('', [Validators.required]),
       effect: new FormControl('', [Validators.required]),
       image: new FormControl('', [Validators.required])
     });
@@ -162,8 +164,113 @@ export class WineManagementComponent implements OnInit {
     }
     this.isDelete = true;
   }
+  update(){
+    this.loading = true;
+    let nameInput = document.getElementById('nameInput') as HTMLInputElement;
+    let codeInput = document.getElementById('codeInput') as HTMLInputElement;
+    let date = document.getElementById('date') as HTMLInputElement;
+    let inputCodeGinseng = document.getElementById('inputCodeGinseng') as HTMLInputElement;
+    let switcher = document.getElementById('switcher') as HTMLInputElement;
+    let effectInput = document.getElementById('effectInput') as HTMLInputElement;
+    let more_info = document.getElementById('more_info') as HTMLInputElement;
+    if(this.wineUpdate)
+    if (codeInput && nameInput && date && inputCodeGinseng && effectInput && more_info && switcher ) {
+      codeInput.setAttribute('disabled', 'disabled');
+      codeInput.value = this.wineUpdate?.codewine as string;
+      this.unitValue = this.wineUpdate?.cc; 
+      codeInput.dispatchEvent(new Event('input', { bubbles: true }));
+      nameInput.value = this.wineUpdate?.namewine as string;
+      nameInput.dispatchEvent(new Event('input', { bubbles: true }));
+      if(this.wineUpdate?.volumewine.includes('ml')) {
+        this.isML = true;
+      
+        this.unitValue = this.wineUpdate?.cc;
+        console.log( this.unitValue)
+        
+      }
+      if(this.wineUpdate?.volumewine.includes('cc')) 
+      {
+        
+        switcher.checked = false;
+        this.unitValue = this.wineUpdate?.cc;
+        
+      }
+      inputCodeGinseng.dispatchEvent(new Event('input', { bubbles: true }));
+      effectInput.value = this.wineUpdate?.effect as string;
+      effectInput.dispatchEvent(new Event('input', { bubbles: true }));
+      more_info.value = this.wineUpdate?.moreinfo as string;
+      if (this.wineUpdate?.created_date)
+      date.value = this.formatDate(this.wineUpdate?.created_date);
+      console.log(this.wineUpdate?.ginseng.code)
+      if(this.wineUpdate?.ginseng.code){
+        inputCodeGinseng.value = this.wineUpdate?.ginseng.code as string; 
+      }
+      
+    }
+    if (this.wineUpdate?.image) {
+      this.imagesEdit?.push(this.wineUpdate?.image);
+      console.log(this.wineUpdate?.image);
+    }
+    if (this.wineUpdate?.image1) {
+      this.imagesEdit?.push(this.wineUpdate?.image1);
+    }
+    if (this.wineUpdate?.image2) {
+      this.imagesEdit?.push(this.wineUpdate?.image2);
+    }
+    if (this.wineUpdate?.image3) {
+      this.imagesEdit?.push(this.wineUpdate?.image3);
+    }
+    if (this.wineUpdate?.image4) {
+      this.imagesEdit?.push(this.wineUpdate?.image4);
+    }
+    // this.inputForm.get('image')?.disable();
+      this.HandleEditImage();
+      this.handleUnit();
+      
+  }
+
+  async HandleEditImage() {
+    if(this.imagesEdit) {
+      for(let i of this.imagesEdit) {
+        await fetch(i)
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error(`Network response was not ok: ${res.status}`);
+            }
+            return res.blob();
+          })
+          .then((blob) => {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+              let base64dataa = reader.result;
+              this.imagesArray?.push(base64dataa);
+            };
+            reader.readAsDataURL(blob);
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      };
+    }
+    else{
+      alert(1);
+    }
+  }
   handleUpdate(id: any) {
-    alert(id);
+    this.codeWine = id;
+    this.titleForm = 'Cập nhật sản phẩm';
+    this.footerForm = 'Sửa';
+    this.isEdit = true;
+    this.isAdd = true;
+    if(this.codeWine){
+      this.wineService.getProduct(this.codeWine).subscribe((data: any) => {
+        console.log(data);
+        this.wineUpdate = data;
+        if(this.wineUpdate){
+          this.update();
+        }
+      });
+    }
   }
   HandleNextPage() {
     this.pagination.HandleNextPage();
@@ -186,24 +293,7 @@ export class WineManagementComponent implements OnInit {
       input.value = value;
     }
   }
-  getFileNameFromPath(filePath: string): string {
-    let url_new;
-    try {
-      const url = new URL(filePath);
-      url_new = url.pathname.split('\\fakepath\\').pop() || '';
-      if (url_new.length > 24) {
-        url_new = url_new.substring(0, 15) + '...' + url_new.slice(-4);
-      }
-    } catch (_) {
-      url_new = filePath.replace('/assets/certificate/ginseng/', '');
-      if (url_new.length > 24) {
-        url_new = url_new.substring(0, 15) + '...' + url_new.slice(-4);
-      }
-      return url_new;
-    }
-    return url_new;
-  }
-  setUp() {
+   setUp() {
     this.pagination.HandleDisable();
     this.imagesArray = [];
     this.imagesData = [];
@@ -215,8 +305,6 @@ export class WineManagementComponent implements OnInit {
     this.isPrev = this.pagination.isPrev;
     this.currentPage = this.pagination.currentPage;
     this.GetList(this.currentPage, this.numberOfItems);
-
-    
     this.isAdd = false;
   }
   toggleCalendar() {
@@ -234,6 +322,9 @@ export class WineManagementComponent implements OnInit {
   }
   uploadImage(){
     var button = document.getElementById('button');
+    if(!button){
+      alert(1);
+    }
     button?.click();
   }
   processImageFile(file: File) {
@@ -324,7 +415,7 @@ export class WineManagementComponent implements OnInit {
   imageLoaded(){
     this.loading = false;
   }
-  closeFunction() {}
+
   handleClose() {
     this.isDelete = false;
     this.isAdd = false;
@@ -339,28 +430,28 @@ export class WineManagementComponent implements OnInit {
       alert(index);
       this.isRender = true;
       this.allowDropImages = true;
-      console.log(this.wineUpdate?.img1);
-      if (this.wineUpdate?.img4 != null && index == 4) {
-        this.wineUpdate.img4 = null;
+      console.log(this.wineUpdate?.image1);
+      if (this.wineUpdate?.image4 != null && index == 4) {
+        this.wineUpdate.image4 = null;
         return;
       }
-      if (this.wineUpdate?.img3 != null && index == 3) {
-        this.wineUpdate.img3 = null;
-        return;
-        
-      }
-      if (this.wineUpdate?.img2 != null && index == 2) {
-        this.wineUpdate.img2 = null;
+      if (this.wineUpdate?.image3 != null && index == 3) {
+        this.wineUpdate.image3 = null;
         return;
         
       }
-      if (this.wineUpdate?.img1 != null && index == 1) {
-        this.wineUpdate.img1 = null;
+      if (this.wineUpdate?.image2 != null && index == 2) {
+        this.wineUpdate.image2 = null;
+        return;
+        
+      }
+      if (this.wineUpdate?.image1 != null && index == 1) {
+        this.wineUpdate.image1 = null;
         alert(1);
         return;
       }
-      if (this.wineUpdate?.img != null && index == 0) {
-        this.wineUpdate.img = null;
+      if (this.wineUpdate?.image != null && index == 0) {
+        this.wineUpdate.image = null;
         return;
         
       }
@@ -376,8 +467,67 @@ export class WineManagementComponent implements OnInit {
       }
     }
   }
-  handleSend(code: any, name: any, date:any, unit: any, codeGinseng: any, effect: any, more_info: any){
-    alert(code.value + " " + name.value + " " + date.value + " " + unit.value + " "  + effect.value + " " + more_info.value);
+  async reset(){
+
+    
+    this.setUp();
+  }
+  handleSend(code: any, name: any, date:any, unit: any, codeGinseng: any, effectInput: any, more_info: any){
+
+    const ginsengObj = {
+      code: codeGinseng.value
+    };
+    let codewine = code.value;
+    let namewine = name.value;
+    let volumewine = '';
+    let cc ;
+    if(this.isML){
+      volumewine = unit.value +" ml";
+      cc = unit.value;
+    }
+    else{
+      volumewine = unit.value +" cc";
+      cc = unit.value;
+    }
+    let dateInputValue = date.value;
+    if (typeof dateInputValue !== 'string') {
+      dateInputValue = dateInputValue.toString();
+    }
+    const parts = dateInputValue.split('/');
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parseInt(parts[2], 10);
+    const isValidDate =
+    day >= 1 &&
+    day <= 31 &&
+    month >= 1 &&
+    month <= 12 &&
+    year >= 1000 &&
+    year <= 9999;
+    if (!isValidDate || parts.length < 2) {
+      this.toastr.warning("Định dạng hợp lệ là dd/mm/yyyy", "Định dạng ngày tháng không hợp lệ.");
+      return;
+    }
+    let created_date = new Date(year, month, day);
+    let moreinfo;
+    if(more_info){
+      moreinfo = more_info.value;
+    }
+    let effect = effectInput.value;
+    let ginseng = ginsengObj;
+    let obj = {codewine, namewine, volumewine, cc, created_date, effect, moreinfo, ginseng};
+    if(this.imagesData != null){
+      this.wineService.addProduct(obj, this.imagesData).subscribe((data: any) => {
+        this.toastr.success(
+          'Chúc mừng, bạn đã thêm sản phẩm thành công!',
+          'Đã thêm sản phẩm thành công'
+        );
+        // this.loading = false;
+        this.closeFunction();
+        this.setUp();
+      });
+    }
+    return ;
   }
   handleUnit(){
     if(this.isML){
@@ -412,5 +562,13 @@ export class WineManagementComponent implements OnInit {
       this.isML = false;
     }
     this.handleUnit();
+  }
+   closeFunction() {
+    this.inputForm.reset();
+    this.imagesData = [];
+    this.imagesArray = [];
+    this.imagesEdit = [];
+    this.isAdd = false;
+    this.setUp();
   }
 }

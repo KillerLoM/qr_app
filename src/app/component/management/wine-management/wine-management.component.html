@@ -188,7 +188,7 @@
           id="cancel"
           style="color: #22493b; background-color: #e2f1ef; border: none"
           type="button"
-          (click)="handleClose()"
+          (click)="closeFunction()"
         >
           close
         </button>
@@ -286,7 +286,6 @@
                     id="resourceInput"
                     #unit
                     formControlName="unit"
-                    name="unit"
                     [(ngModel)]="unitValue"
                     (input)="handleUnit()"
                     inputmode="numeric"
@@ -302,7 +301,7 @@
                     </span>
                   </div>
                 </div>
-                <span class="Helper-text"> = {{display}}</span>
+                <span class="Helper-text" > = {{display}}</span>
               </div>
 
               <button class="QRCODE" [disabled]="!inputForm.valid">
@@ -538,8 +537,8 @@
 
         <span class="Content"> Bạn có chắc chắn xóa mục này? </span>
       </div>
-      <div class="action-bar">
-        <div class="right-actions">
+      <div class="deletedButton">
+        <div class="right-actionsDeleted">
           <div
             class="Buttons-cancels btn btn-light"
             type="button"
