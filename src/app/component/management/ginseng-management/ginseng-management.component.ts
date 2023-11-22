@@ -140,6 +140,7 @@ export class GinsengManagementComponent implements OnInit {
     this.pagination.HandlePrevPage();
     this.setUp();
   }
+  
   toggleCalendar() {
     this.showCalendar = !this.showCalendar;
   }

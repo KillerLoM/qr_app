@@ -22,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { WineManagementComponent } from './component/management/wine-management/wine-management.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { WineManagementComponent } from './component/management/wine-management/
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
+    FormsModule
 
   ],
   providers: [AppService, LoginService, {

@@ -243,6 +243,7 @@
                     type="text"
                     style="color: black"
                     placeholder="Nhập ngày tạo"
+                    formControlName="date"
                     id="date"
                     #date
                   />
@@ -262,7 +263,7 @@
                     />
                   </svg>
                   <mat-card
-                    class="demo-inline-calendar-card z-4"
+                    class="demo-inline-calendar-card z-3"
                     *ngIf="showCalendar"
                   >
                     <mat-calendar
@@ -272,26 +273,41 @@
                   </mat-card>
                 </div>
               </div>
-              <div class="input-resource">
-                <label style="color: #3b927d; width: 140px">
+              <div class="input-resource" >
+                <label style="color: #3b927d; width: 140px; margin-top: 25px;">
                   Đơn vị
                   <span style="color: red"> * </span>
                 </label>
-                <input
-                  type="text"
-                  style="color: black"
-                  placeholder="Nhập đơn vị ở đây"
-                  id="resourceInput"
-                  #unit
-                  formControlName="unit"
-                  required
-                />
+                <div class="container-switch">
+                  <input
+                    type="text"
+                    style="color: black"
+                    placeholder="Nhập đơn vị ở đây"
+                    id="resourceInput"
+                    #unit
+                    formControlName="unit"
+                    name="unit"
+                    [(ngModel)]="unitValue"
+                    (input)="handleUnit()"
+                    inputmode="numeric"
+                  />
+                  <div class="switch-unit">
+                    <span class="switch">
+                      <input type="checkbox" id="switcher"  checked (click)="handleClick($event)"/>
+                      <label
+                        for="switcher"
+                        style="width: 31px; height: 24px; font-size: 12px"
+                      >
+                      </label>
+                    </span>
+                  </div>
+                </div>
+                <span class="Helper-text"> = {{display}}</span>
               </div>
-              <div class="QRCODE">
-                <label style="color: #454c53; width: 140px">
-                  Mã QR
-                </label>
-                <div class="Placeholder" type="button">
+
+              <button class="QRCODE" [disabled]="!inputForm.valid">
+                <label style="color: #9ea4aa; width: 140px"> Mã QR </label>
+                <div class="Placeholder">
                   <span class="Placeholder" id="display"> Xem mã QR </span>
                   <svg
                     width="24"
@@ -306,7 +322,7 @@
                     />
                   </svg>
                 </div>
-              </div>
+              </button>
             </div>
           </div>
           <div class="link-ginseng">
@@ -319,9 +335,14 @@
                 placeholder="Chọn hoặc tìm kiếm mã sâm"
                 class="input-type"
                 list="scripts"
+                id="inputCodeGinseng"
+                #codeGinseng
               />
               <!--  -->
-              <select class="input-chose" (change)="HandleClick($event)">
+              <select
+                class="input-chose"
+                (change)="handleChoseGinsengCode($event)"
+              >
                 <svg
                   type="button"
                   class="input-chose"
@@ -336,12 +357,17 @@
                     fill="#9EA4AA"
                   />
                 </svg>
-                <<option value="" disabled selected hidden></option> 
-                <option *ngFor="let code of ArrayGinseng" [value]="code.id">{{code.name}} - {{code.code}}</option>
+                <option value="" disabled selected hidden></option>
+                <option *ngFor="let code of ArrayGinseng" [value]="code.code">
+                  {{ code.name }} - {{ code.code }}
+                </option>
               </select>
             </div>
             <datalist id="scripts">
-              <option *ngFor="let code of ArrayGinseng" [value]="code.id">{{ code.code }}</option>
+              <option value="" disabled selected hidden></option>
+              <option *ngFor="let code of ArrayGinseng" [value]="code.code">
+                {{ code.code }}
+              </option>
             </datalist>
           </div>
           <div class="inputs">
@@ -354,7 +380,7 @@
                 </label>
                 <textarea
                   class="text-area"
-                  placeholder="Nhập tác dụng của sâm tại đây"
+                  placeholder="Nhập tác dụng của sản phẩm tại đây"
                   id="effectInput"
                   formControlName="effect"
                   required
@@ -369,117 +395,109 @@
                   class="text-area"
                   placeholder="Nhập các thông tin bổ sung tại đây"
                   id="more_info"
+                  #more_info
                 ></textarea>
               </div>
             </div>
           </div>
-          <!-- <div class="row">
-            <div
-              (drop)="handleImageDrop($event)"
-              (dragover)="allowDrop($event)"
-              (dragenter)="handleDragEnter($event)"
-              id="drag"
-            >
-              <div class="attach-image">
-                <label style="color: #3b927d; width: 150px">
-                  Hình ảnh sâm (tối đa 5 ảnh)
-                  <span style="color: red"> * </span>
-                </label>
-                <div class="upload">
-                  <div
-                    id="image-render"
-                    class="attachment-atom active"
-                    *ngFor="let image of imagesArray; let i = index"
-                  >
-                    <img
-                      [src]="image"
-                      alt=""
-                      class="render-atom"
-                      (load)="imageLoaded()"
-                      id="imageRender"
-                    />
-
-                    <div class="deleted" type="button" (click)="deleteImage(i)">
+          <div
+            class="inputs"
+            style="margin-top: 2%; margin-bottom: 5px; width: 100%"
+          >
+            <div class="row">
+              <div
+                (drop)="handleImageDrop($event)"
+                (dragover)="allowDrop($event)"
+                (dragenter)="handleDragEnter($event)"
+                id="drag"
+              >
+                <div class="attach-image">
+                  <label style="color: #3b927d; width: 150px">
+                    Hình ảnh sâm (tối đa 5 ảnh)
+                    <span style="color: red"> * </span>
+                  </label>
+                  <div class="upload">
+                    <div
+                      id="image-render"
+                      class="attachment-atom active"
+                      *ngFor="let image of imagesArray; let i = index"
+                    >
+                      <img
+                        [src]="image"
+                        alt=""
+                        class="render-atom"
+                        (load)="imageLoaded()"
+                        id="imageRender"
+                      />
+                      <div
+                        class="deleted"
+                        type="button"
+                        (click)="deleteImage(i)"
+                      >
+                        <svg
+                          widt
+                          h="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="clear"
+                        >
+                          <path
+                            d="M12.2 3.807a.664.664 0 0 0-.94 0L8 7.06 4.74 3.8a.664.664 0 1 0-.94.94L7.06 8 3.8 11.26a.664.664 0 1 0 .94.94L8 8.94l3.26 3.26a.664.664 0 1 0 .94-.94L8.94 8l3.26-3.26a.668.668 0 0 0 0-.933z"
+                            fill="#fff"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="attachment-atom" *ngIf="isRender">
+                      <input
+                        id="button"
+                        type="file"
+                        accept="image/*"
+                        formControlName="image"
+                        (change)="handleUploadImage($event)"
+                        hidden
+                      />
                       <svg
-                        widt
-                        h="16"
-                        height="16"
-                        viewBox="0 0 16 16"
+                        type="button"
+                        (click)="uploadImage()"
+                        class="add-image"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        class="clear"
                       >
                         <path
-                          d="M12.2 3.807a.664.664 0 0 0-.94 0L8 7.06 4.74 3.8a.664.664 0 1 0-.94.94L7.06 8 3.8 11.26a.664.664 0 1 0 .94.94L8 8.94l3.26 3.26a.664.664 0 1 0 .94-.94L8.94 8l3.26-3.26a.668.668 0 0 0 0-.933z"
-                          fill="#fff"
+                          d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"
+                          fill="#22493B"
                         />
                       </svg>
                     </div>
                   </div>
-                  <div class="attachment-atom" *ngIf="isRender">
-                    <input
-                      id="button"
-                      type="file"
-                      accept="image/*"
-                      formControlName="image"
-                      (change)="handleUploadImage($event)"
-                      hidden
-                    />
-
-                    <svg
-                      type="button"
-                      (click)="uploadImage()"
-                      class="add-image"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"
-                        fill="#22493B"
-                      />
-                    </svg>
-                  </div>
                 </div>
               </div>
             </div>
-          </div> -->
-            <div class="row">
-              <div class="input-code" style="width: 700px; height: 100px; margin-left: 2%;margin: 20px 12px 12px 30px;">
-                <label style="color: #454c53; width: 150px">
-                  Tác dụng của sản phẩm
-                  <span style="color: red"> * </span>
-                </label>
-                <textarea
-                  class="text-area"
-                  placeholder="Nhập tác dụng của sâm tại đây"
-                  id="effectInput"
-                  formControlName="effect"
-                  required
-                  #effect
-                ></textarea>
+          </div>
+          <div class="action-bar z-2">
+            <div class="right-actions">
+              <div
+                class="Buttons-cancels btn btn-light"
+                type="button"
+                (click)="closeFunction()"
+              >
+                <span class="cancel"> Hủy </span>
               </div>
+              <button
+                [disabled]="!inputForm.valid"
+                class="Buttons-add btn btn-success"
+                type="button"
+                (click)="handleSend(code, name, date, unit,  codeGinseng, effect, more_info)"
+              >
+                <span class="add"> {{ footerForm }} </span>
+              </button>
             </div>
-          </div> 
-        <div class="action-bar z-2">
-          <div class="right-actions">
-            <div
-              class="Buttons-cancels btn btn-light"
-              type="button"
-              (click)="closeFunction()"
-            >
-              <span class="cancel"> Hủy </span>
-            </div>
-            <button
-              [disabled]="!inputForm.valid"
-              class="Buttons-add btn btn-success"
-              type="button"
-              (click)="handleSend()"
-            >
-              <span class="add"> {{ footerForm }} </span>
-            </button>
           </div>
         </div>
       </form>
