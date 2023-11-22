@@ -93,4 +93,7 @@ export class GinsengService {
       return this.http.put(this.url + 'edit', formData,{responseType: 'text'})}
 
   }
+  getCodeGinseng() : Observable<any> {
+    return this.http.get(this.url + 'get' + '/code').pipe()
+  }
 }

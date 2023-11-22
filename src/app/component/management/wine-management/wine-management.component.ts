@@ -25,13 +25,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ToastrService } from 'ngx-toastr';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
 import { Wine } from 'src/app/model/wine';
+import { AppService } from 'src/app/services/app-service/app.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-wine-management',
   templateUrl: './wine-management.component.html',
   styleUrls: ['./wine-management.component.scss'],
 })
-export class WineManagementComponent {
+export class WineManagementComponent implements OnInit {
   wine: Wine[] | null = null;
   wineUpdate: Wine | null = null;
 
@@ -44,8 +46,9 @@ export class WineManagementComponent {
   showCalendar = false;
   isRender = true;
   isDelete = false;
-  isAdd = true;
+  isAdd = false;
   selected: Date | null = null;
+  ArrayGinseng: any[] | null = null;
   amount = '';
   numberOfItems = 10;
   isSorted = 1;
@@ -62,6 +65,7 @@ export class WineManagementComponent {
   titleForm = '';
   footerForm = '';
   inputForm!: FormGroup;
+  https: any;
   HandleSort() {
     if (this.isSorted == 1) {
       this.wine?.sort((a, b) =>
@@ -86,14 +90,19 @@ export class WineManagementComponent {
     
     this.titleForm = 'Tạo mới sản phẩm';
     this.footerForm = 'Thêm';
+
+    console.log(this.ArrayGinseng);
     this.isAdd = true;
   }
   constructor(
     @Inject(WineService) private wineService: WineService,
     private pagination: PaginationService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private appService: AppService,
+    private http: HttpClient,
   ) {
+
     this.wineService
       .getListWine(this.numberOfItems, 0)
       .subscribe((data: any) => {
@@ -101,8 +110,22 @@ export class WineManagementComponent {
         this.amount = data.amount + ' Sản phẩm';
         this.size = data.amount;
         this.pagination.init(this.size, this.numberOfItems);
+        this.http.get('http://localhost:5050/admin/ginseng/get/code').subscribe((data: any) => {
+          this.ArrayGinseng = data;
+        })
         this.setUp();
       });
+
+  }
+  ngOnInit(): void {
+    this.inputForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      code: new FormControl('', [Validators.required]),
+      date: new FormControl('', [Validators.required]),
+      unit: new FormControl('', [Validators.required]),
+      effect: new FormControl('', [Validators.required]),
+      image: new FormControl('', [Validators.required])
+    });
   }
   GetList(page: number, number: any) {
     page--;
@@ -159,7 +182,9 @@ export class WineManagementComponent {
     this.isPrev = this.pagination.isPrev;
     this.currentPage = this.pagination.currentPage;
     this.GetList(this.currentPage, this.numberOfItems);
-    this.isAdd = true;
+
+    
+    this.isAdd = false;
     // this.name_certi = 'Tải giấy chứng nhận lên'
   }
   toggleCalendar(){
@@ -189,6 +214,7 @@ export class WineManagementComponent {
   closeFunction() {}
   handleClose() {
     this.isDelete = false;
+    this.isAdd = false;
   }
   updateStatus(){
 
@@ -198,13 +224,5 @@ export class WineManagementComponent {
   }
   handleSend(){
 
-  }
-  HandleSelect(){
-    let button = document.getElementById("linkGinseng");
-    if(button){
-      button.focus();
-      button.focus();
-    }
-    
   }
 }
