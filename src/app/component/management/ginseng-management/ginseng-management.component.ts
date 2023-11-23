@@ -69,6 +69,8 @@ export class GinsengManagementComponent implements OnInit {
   isPrev = false;
   isAdd = false;
   isEdit = false;
+  isDisabled = true;
+  init = false;
   addForm!: FormGroup;
   @ViewChild('pdfViewer') pdfViewer: ElementRef | undefined;
   pdfSrc: string | ArrayBuffer | Uint8Array | undefined;
@@ -84,6 +86,7 @@ export class GinsengManagementComponent implements OnInit {
     this.imagesData = [];
     this.loading = false;
     this.imagesEdit = [];
+    
     this.ginsengService.getListGinseng(this.numberOfItems, 0).subscribe(
       (data: any) => {
         this.ginseng = data.ginsengs;
@@ -96,19 +99,24 @@ export class GinsengManagementComponent implements OnInit {
         this.router.navigate(['login']);
       }
     );
+    
   }
   ngOnInit() {
+    
     if (!this.isEdit) {
       this.addForm = new FormGroup({
         name: new FormControl('', [Validators.required]),
         code: new FormControl('', [Validators.required]),
         effect: new FormControl('', [Validators.required]),
+        date: new FormControl('', [Validators.required]),
         source: new FormControl('', [Validators.required]),
         certificate: new FormControl('', [Validators.required]),
         image: new FormControl('', [Validators.required]),
       });
     }
     this.pdfSrc = 'URL/file.pdf';
+    this.check();
+    this.setUp();
   }
   openPdf() {}
   HandleDelte(id: any) {
@@ -159,7 +167,6 @@ export class GinsengManagementComponent implements OnInit {
   }
   
   setUp() {
-    
     this.pagination.HandleDisable();
     this.imagesArray = [];
     this.imagesData = [];
@@ -170,9 +177,9 @@ export class GinsengManagementComponent implements OnInit {
     this.isNext = this.pagination.isNext;
     this.isPrev = this.pagination.isPrev;
     this.currentPage = this.pagination.currentPage;
+    this.addForm.reset();
     this.GetList(this.currentPage, this.numberOfItems);
     this.isAdd = false;
-    this.name_certi = 'Tải giấy chứng nhận lên'
   }
 
   HandleSort() {
@@ -188,14 +195,15 @@ export class GinsengManagementComponent implements OnInit {
       this.isSorted = true;
     }
   }
-
   HandleAddGinseng() {
-    this.isAdd = true;
     this.titleForm = 'Tạo sâm mới';
     this.footerForm = 'Thêm';
-
+    this.name_certi = 'Tải giấy chứng nhận lên';
+    this.setUp();
+    this.isRender = true;
+    this.check();
+    this.isAdd = true;
   }
-
   uploadImage() {
     var button = document.getElementById('button');
     button?.click();
@@ -230,6 +238,7 @@ export class GinsengManagementComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
       this.certificate = event.target.files[0];
     }
+    this.check();
   }
   showCertificate() {
     let show = document.getElementById('file-link');
@@ -294,12 +303,12 @@ export class GinsengManagementComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
       this.imagesData?.push(event.target.files[0]);
     }
+    this.check();
   }
   deleteImage(index: number) {
     if (this.isEdit) {
       this.imagesArray?.splice(index, 1);
       this.imagesEdit?.splice(index, 1);
-      alert(index);
       this.isRender = true;
       this.allowDropImages = true;
       console.log(this.ginsengUpdate?.img1);
@@ -319,25 +328,37 @@ export class GinsengManagementComponent implements OnInit {
       }
       if (this.ginsengUpdate?.img1 != null && index == 1) {
         this.ginsengUpdate.img1 = null;
-        alert(1);
         return;
       }
       if (this.ginsengUpdate?.img != null && index == 0) {
         this.ginsengUpdate.img = null;
+        if(this.imagesArray?.length == 0){
+          this.isDisabled = true;
+        }
         return;
         
+      }
+      if(this.imagesArray?.length == 0){
+        this.isDisabled = true;
       }
     } 
     else {
       this.imagesArray?.splice(index, 1);
+      if(this.imagesArray?.length == 0){
+        this.isDisabled = true;
+      }
       if (this.imagesArray?.length === 5) {
         this.isRender = false;
         this.allowDropImages = false;
+         
       } else {
         this.isRender = true;
         this.allowDropImages = true;
+          
       }
+      // this.check();
     }
+   
   }
   formatDate(date: Date | null): any {
     return date ? this.datePipe.transform(date, 'dd/MM/yyyy') : '';
@@ -346,6 +367,7 @@ export class GinsengManagementComponent implements OnInit {
     this.selected = date;
     this.showCalendar = false;
     let temp = document.getElementById('date') as HTMLInputElement;
+    this.addForm.get('date')?.setValue(this.formatDate(date));
     temp.value = this.formatDate(date);
   }
   handleClose() {
@@ -354,7 +376,6 @@ export class GinsengManagementComponent implements OnInit {
     this.imagesArray?.splice(0, this.imagesArray.length);
     this.selected = null;
     this.isDelete = false;
-
     if (this.isEdit) {
       this.idGinseng = null;
       this.imagesEdit?.splice(0, this.imagesEdit.length);
@@ -471,7 +492,7 @@ export class GinsengManagementComponent implements OnInit {
                 'Đã thêm sản phẩm thành công'
               );
               this.loading = false;
-              this.handleClose();
+              this.handleClose();              
               this.setUp();
               
             },
@@ -613,7 +634,7 @@ export class GinsengManagementComponent implements OnInit {
           (error) => {
             this.toastr.error(
               'Đã có lỗi trong quá trình xử lý dữ liệu của bạn. Vui lòng kiểm tra và thử lại sau',
-              'Lỗi thêm sản phẩm'
+              'Lỗi cập nhật sâm'
             );
           }
         );
@@ -637,23 +658,20 @@ export class GinsengManagementComponent implements OnInit {
   }
   update() {
     this.loading = true;
+    this.init = true;
     let code = document.querySelector('#codeInput') as HTMLInputElement;
-    let name = document.querySelector('#nameInput') as HTMLInputElement;
     let date = document.querySelector('#date') as HTMLInputElement;
-    let resource = document.querySelector('#resourceInput') as HTMLInputElement;
-    let effect = document.querySelector('#effectInput') as HTMLInputElement;
-    let more_info = document.querySelector('#more_info') as HTMLInputElement;
+    let more_info = document.getElementById('more_info') as HTMLInputElement;
     console.log(this.ginsengUpdate);
-    if (code && name && date && resource && effect && more_info) {
+    if (date && more_info) {
       code.setAttribute('disabled', 'disabled');
-      code.value = this.ginsengUpdate?.code as string;
-      code.dispatchEvent(new Event('input', { bubbles: true }));
-      name.value = this.ginsengUpdate?.name as string;
-      name.dispatchEvent(new Event('input', { bubbles: true }));
-      resource.value = this.ginsengUpdate?.source as string;
-      resource.dispatchEvent(new Event('input', { bubbles: true }));
-      effect.value = this.ginsengUpdate?.effect as string;
-      effect.dispatchEvent(new Event('input', { bubbles: true }));
+      this.addForm.get('code')?.setValue(this.ginsengUpdate?.code as string);
+      this.addForm.get('more_info')?.setValue(this.ginsengUpdate?.more_info as string);
+      this.addForm.get('name')?.setValue(this.ginsengUpdate?.name as string);
+      this.addForm.get('effect')?.setValue(this.ginsengUpdate?.effect as string);
+      this.addForm.get('source')?.setValue(this.ginsengUpdate?.source as string);
+      if(this.ginsengUpdate?.created_date)
+      this.addForm.get('date')?.setValue(this.formatDate(this.ginsengUpdate?.created_date));
       more_info.value = this.ginsengUpdate?.more_info as string;
       let file = this.ginsengUpdate?.certificate;
       if (file != null) {
@@ -679,21 +697,21 @@ export class GinsengManagementComponent implements OnInit {
     if (this.ginsengUpdate?.img4) {
       this.imagesEdit?.push(this.ginsengUpdate?.img4);
     }
+
     console.log(this.imagesEdit);
-
-
-
-    this.addForm.get('image')?.disable();
-    this.addForm.get('certificate')?.disable();
-
-    if (this.isEdit) {
+    if (this.isEdit && this.imagesEdit!=null) {
       this.HandleEditImage();
       this.HandleEditCertificate();
+      this.loading = false;
+      this.toastr.warning("Vui lòng không để trống hình ảnh");
     }
-    this.addForm.get('name')?.enable();
+    
   }
   imageLoaded(){
     this.loading = false;
+    this.addForm.updateValueAndValidity();
+    this.addForm.get('image')?.enable();
+    this.check();
   }
   async HandleEditImage() {
     if(this.imagesEdit) {
@@ -737,5 +755,25 @@ export class GinsengManagementComponent implements OnInit {
   closeFunction(){
     this.handleClose();
     this.setUp();
+
   }
+  check(){
+    if(!this.isEdit ){
+      this.isDisabled = !this.addForm.valid;
+      if(this.imagesArray == null){
+        this.isDisabled = true;
+        return;
+        alert(1);
+      }
+    }
+    else{
+      if(this.imagesEdit != null && this.addForm.get('name')?.value  && this.addForm.get('date')?.value  && this.addForm.get('source')?.value  && this.addForm.get('effect')?.value ){
+        this.isDisabled = false;
+      }
+      else{
+          this.isDisabled = true;
+      }
+    }
+  }
+
 }

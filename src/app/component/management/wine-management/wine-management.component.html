@@ -25,7 +25,7 @@
       <div type="button" class="Buttons" (click)="HandleSort()">
         <span class="material-symbols-outlined"> filter_list </span>
       </div>
-      <div type="button" class="Add" (click)="HandleAdd()">
+      <div type="button" class="Add" (click)="HandleAdd()" id="create">
         <span class="material-symbols-outlined"> add </span>
         <span class="Thm-hnh-nh-c-sn">Thêm mới</span>
       </div>
@@ -50,9 +50,9 @@
     <td class="date">{{ item?.created_date | date : "dd/MM/yyyy" }}</td>
     <td class="link">
       <svg
-        width="25"
-        height="24"
-        viewBox="0 0 25 24"
+      width="24"
+      height="24"
+        viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -63,23 +63,36 @@
       </svg>
     </td>
     <td>
-      <div class="Frame-35">
-        <span class="content">
-          {{ item?.otp }}
-        </span>
-        <svg
-          class="visibility"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
-            fill="#72787F"
-          />
+      <div class="Frame-35" type="button" (click)="handleVisibility()">
+        <div *ngIf="!init == true; else content" class="content">
+          <span class="content">
+            {{ item?.otp }}
+          </span>
+
+          <svg class="visibility"width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 6.47c2.76 0 5 2.24 5 5 0 .51-.1 1-.24 1.46l3.06 3.06c1.39-1.23 2.49-2.77 3.18-4.53-1.73-4.38-6-7.49-11-7.49-1.27 0-2.49.2-3.64.57l2.17 2.17c.47-.14.96-.24 1.47-.24zM2.71 3.13a.996.996 0 0 0 0 1.41l1.97 1.97A11.892 11.892 0 0 0 1 11.47c1.73 4.39 6 7.5 11 7.5 1.52 0 2.97-.3 4.31-.82l2.72 2.72a.996.996 0 1 0 1.41-1.41L4.13 3.13c-.39-.39-1.03-.39-1.42 0zM12 16.47c-2.76 0-5-2.24-5-5 0-.77.18-1.5.49-2.14l1.57 1.57c-.03.18-.06.37-.06.57 0 1.66 1.34 3 3 3 .2 0 .38-.03.57-.07l1.57 1.57c-.65.32-1.37.5-2.14.5zm2.97-5.33a2.97 2.97 0 0 0-2.64-2.64l2.64 2.64z" fill="#72787F"/>
         </svg>
+        </div>
+        <ng-template #content>
+          <span class="content">
+            ••••
+          </span>
+          <svg
+            class="visibility"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+              fill="#72787F"
+            />
+          </svg>
+        
+        </ng-template>
+
       </div>
     </td>
     <td class="handle-status">
@@ -212,6 +225,7 @@
                   id="codeInput"
                   #code
                   [disabled]="isEdit.valueOf()"
+                  (change)="checkValid()"
                 />
               </div>
               <div class="input-name">
@@ -225,7 +239,7 @@
                   placeholder="Nhập tên sâm của bạn vào đây"
                   formControlName="name"
                   id="nameInput"
-                  (change)="updateStatus()"
+                  (change)="checkValid()"
                   required
                   #name
                 />
@@ -244,6 +258,7 @@
                     style="color: black"
                     placeholder="Nhập ngày tạo"
                     formControlName="date"
+                    (change)="checkValid()"
                     id="date"
                     #date
                   />
@@ -304,7 +319,7 @@
                 <span class="Helper-text" > = {{display}}</span>
               </div>
 
-              <button class="QRCODE" [disabled]="!inputForm.valid">
+              <button class="QRCODE" [disabled]="isDisable" (click)="handleCreateQR(code)">
                 <label style="color: #9ea4aa; width: 140px"> Mã QR </label>
                 <div class="Placeholder">
                   <span class="Placeholder" id="display"> Xem mã QR </span>
@@ -382,6 +397,7 @@
                   placeholder="Nhập tác dụng của sản phẩm tại đây"
                   id="effectInput"
                   formControlName="effect"
+                  (change)="checkValid()"
                   required
                   #effect
                 ></textarea>
@@ -489,13 +505,14 @@
                 <span class="cancel"> Hủy </span>
               </div>
               <button
-                [disabled]="!inputForm.valid"
+                [disabled]="isDisable"
                 class="Buttons-add btn btn-success"
+                id="btnAdd"
                 type="button"
                 (click)="handleSend(code, name, date, unit,  codeGinseng, effect, more_info)"
               >
                 <span class="add"> {{ footerForm }} </span>
-              </button>
+              </button> 
             </div>
           </div>
         </div>
@@ -558,3 +575,66 @@
     </div>
   </div>
 </section>
+<section class="z-3 position-fixed section-placeholder" *ngIf="isQR">
+  <div class="modal_overlay">
+    <div
+      class="modal_inner"
+      style="width: 727px; height: 630px; margin-top: 4%"
+    >
+      <div class="form_heading">
+        <span class="Title"> Xem trước mã QR </span>
+        <button
+          class="material-symbols-outlined"
+          id="cancel"
+          style="color: #22493b; background-color: #e2f1ef; border: none"
+          type="button"
+          (click)="handleExit()"
+        >
+          close
+        </button>
+      </div>
+      <div class="inner-content">
+        <svg
+          width="24"
+          height="25"
+          viewBox="0 0 24 25"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11 7.5h2v2h-2v-2zm0 4h2v6h-2v-6zm1-9c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+            fill="#D32F2F"
+          />
+        </svg>
+
+        
+        <span class="Content"> Bạn sẽ tạo sản phẩm mới sau khi bấm tải về
+          <div class="Content " *ngIf="isQR">
+            <qrcode #qrcode  class="Content-qr"  [qrdata]="angularxQrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+          </div>
+         </span>
+      </div>
+      <div class="deletedButton" style="margin-top: 47.3%;">
+        <div class="right-actionsDeleted">
+          <div
+            class="Buttons-cancels btn btn-light"
+            type="button"
+            (click)="handleExit()"
+          >
+          
+            <span class="cancel"> Hủy </span>
+          </div>
+          <button
+            class="btn btn-primary"
+            type="button"
+            style="width: 90px; "
+            (click)="downloadQRCode()"
+          >
+            <span class="add" > Tải về  </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

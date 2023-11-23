@@ -23,6 +23,10 @@ import {MatCardModule} from '@angular/material/card';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { WineManagementComponent } from './component/management/wine-management/wine-management.component';
 import { FormsModule } from '@angular/forms';
+import { CertificateManagementComponent } from './component/management/certificate-management/certificate-management.component';
+import { QRCodeModule } from 'angularx-qrcode';
+
+
 
 @NgModule({
   declarations: [
@@ -30,7 +34,7 @@ import { FormsModule } from '@angular/forms';
     AdminComponent,
     ManagementComponent,
     GinsengManagementComponent, 
-    WineManagementComponent,
+    WineManagementComponent, CertificateManagementComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,8 +59,9 @@ import { FormsModule } from '@angular/forms';
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    FormsModule
-
+    FormsModule,
+    QRCodeModule,
+    
   ],
   providers: [AppService, LoginService, {
     provide: HTTP_INTERCEPTORS, 

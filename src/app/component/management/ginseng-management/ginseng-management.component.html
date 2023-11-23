@@ -156,7 +156,7 @@
                   <span style="color: red"> * </span>
                 </label>
                 <input
-                  
+                  (change)="check()"
                   type="text"
                   style="color: black"
                   placeholder="Nhập mã sâm của bạn vào đây"
@@ -179,7 +179,7 @@
                   placeholder="Nhập tên sâm của bạn vào đây"
                   formControlName="name"
                   id="nameInput"
-                  (change)="updateStatus()
+                  (change)="check()
                   "
                   required
                   #name
@@ -199,6 +199,8 @@
                     style="color: black"
                     placeholder="Nhập ngày tạo"
                     id="date"
+                    formControlName="date"
+                    (change)="check()"
                     #date
                   />
                   <svg
@@ -209,6 +211,7 @@
                     fill="red"
                     xmlns="http://www.w3.org/2000/svg"
                     type="button"
+                    (change)="check()"
                     (click)="toggleCalendar()"
                   >
                     <path
@@ -239,6 +242,7 @@
                   id="resourceInput"
                   #source
                   formControlName="source"
+                  (change)="check()"
                   required
                 />
               </div>
@@ -290,6 +294,7 @@
                   placeholder="Nhập mã sâm của bạn vào đây"
                   id="effectInput"
                   formControlName="effect"
+                  (change)="check()"
                   required
                   #effect
                 ></textarea>
@@ -303,6 +308,7 @@
                   placeholder="Nhập các thông tin bổ sung tại đây"
                   #more
                   id="more_info"
+                  (change)="check()"
                 ></textarea>
               </div>
             </div>
@@ -324,6 +330,7 @@
                     <div
                       id="image-render"
                       class="attachment-atom active"
+                      
                       *ngFor="let image of imagesArray; let i = index" 
                     >
                       <img [src]="image" alt="" class="render-atom" (load)="imageLoaded()" id ="imageRender" />
@@ -386,7 +393,7 @@
               <span class="cancel"> Hủy </span>
             </div>
             <button
-              [disabled]="!addForm.valid "
+              [disabled]="isDisabled"
               class="Buttons-add btn btn-success"
               type="button"
               (click)="handleAddGinseng(code, name, date, source, effect, more)"
