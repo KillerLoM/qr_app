@@ -1,1 +1,123 @@
-<p>certificate-management works!</p>
+<div class="title">
+    <h1 class="titleHeading">Danh sách chứng nhận </h1>
+    <div class="Frame-1864">
+      <h2 class="-loi-sm">{{ amount }}</h2>
+      <div class="right-actions">
+        <div type="button" class="search-bar">
+
+          <svg class="search" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.977 14.471h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49l-4.24-4.26zm-6 0c-2.49 0-4.5-2.01-4.5-4.5s2.01-4.5 4.5-4.5 4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5z" fill="#3B927D"/>
+        </svg>
+        
+          <input type="text" placeholder="Tìm kiếm" />
+        </div>
+        <div type="button" class="Buttons" (click)="HandleSort()">
+          <span class="material-symbols-outlined"> filter_list </span>
+        </div>
+        <div type="button" class="Add" (click)="HandleAddCertificate()">
+          <span class="material-symbols-outlined"> add </span>
+          <span class="Thm-hnh-nh-c-sn">Thêm mới</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table>
+    <tr class="heading-row">
+      <th class="order">STT</th>
+      <th class="code">Tên giấy chứng nhận</th>
+      <th class="name">File</th>
+      <th class="date">Mô tả</th>
+      <th class="link">Ngày tạo</th>
+      <th class="handle">Thao tác</th>
+    </tr>
+  
+    <tr *ngFor="let item of certificate; let i = index" class="content-row">
+      <td class="order">{{ i + 1 }}</td>
+      <td class="code">{{ item?.namecerti }}</td>
+      <td class="name">{{ item?.id }}</td>
+      <td class="date">{{ item?.description | date : "dd/MM/yyyy" }}</td>
+      <td class="link">{{ item?.dated }}</td>
+      <td class="handle">
+        <div type="button" (click)="handleUpdate(item.id)" >
+          <svg
+          width="25"
+          height="24"
+          viewBox="0 0 25 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="m14.559 9.02.92.92L6.419 19h-.92v-.92l9.06-9.06zm3.6-6.02c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83a.996.996 0 0 0 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3.499 17.25V21h3.75l11.06-11.06-3.75-3.75z"
+            fill="#22493B"
+          />
+        </svg>
+        </div>
+  
+        <div type="button" (click)="HandleDelte(item.id)">
+          <svg
+            width="25"
+            height="24"
+            viewBox="0 0 25 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16.5 9v10h-8V9h8zM15 3h-5L9 4H5.5v2h14V4H16l-1-1zm3.5 4h-12v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"
+              fill="#22493B"
+            />
+          </svg>
+        </div>
+        
+      </td>
+    </tr>
+  </table>
+  <div class="pagination">
+    <div class="items-per-page">
+      <span class="S-dng-trn-trang"> Số dòng trên trang: </span>
+      <select
+        class="form-select form-select-sm"
+        aria-label="Small select example"
+        (change)="HandleClick($event)"
+      >
+        <option value="10">10</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        
+      </select>
+    </div>
+    <div class="paging">
+      <button
+        type="button"
+        class="material-symbols-outlined left"
+        (click)="HandlePrevPage()"
+        [disabled]="isPrev"
+      >
+        chevron_left
+      </button>
+      <span id="first" class="unactive-atom">
+        {{ item1 }}
+      </span>
+      <span id="second" *ngIf="item2" class="unactive-atom">
+        {{ item2 }}
+      </span>
+      <span id="third" *ngIf="item3" class="unactive-atom">
+        {{ item3 }}
+      </span>
+      <button
+        type="button"
+        class="material-symbols-outlined right"
+        [disabled]="isNext"
+        (click)="HandleNextPage()"
+      >
+        chevron_right
+      </button>
+    </div>
+  </div>
+  

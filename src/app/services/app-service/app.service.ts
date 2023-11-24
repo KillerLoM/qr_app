@@ -20,11 +20,15 @@ export class AppService {
     return url_ginseng;
   }
   getUrlWine(){
-    let url_ginseng = this.url + '/wine/';
-    return url_ginseng;
+    let url_wine = this.url + '/wine/';
+    return url_wine;
   }
   getCodeGinSeng(){
     return 1
+  }
+  getUrlCerti(){
+    let url_certi = this.url + '/certificate/';
+    return url_certi;
   }
 
 }

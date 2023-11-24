@@ -1,10 +1,8 @@
 import {
   Component,
-  Renderer2,
   ElementRef,
   OnInit,
   Inject,
-  ViewEncapsulation,
   ViewChild,
 } from '@angular/core';
 import { GinsengService } from 'src/app/services/api-service/ginseng-service/ginseng.service';
@@ -13,16 +11,11 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  ValidatorFn,
-  AbstractControl,
-  ValidationErrors,
 } from '@angular/forms';
 import { PaginationService } from 'src/app/services/app-service/pagination.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ToastrService } from 'ngx-toastr';
-import { AnonymousSubject } from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'app-ginseng-management',

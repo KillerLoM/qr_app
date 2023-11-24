@@ -16,13 +16,15 @@ export class ManagementComponent {
   hide = true;
   iconList = '';
   isWine = false;
+  isCertificate = false;
   constructor(private appService: AppService){
     this.iconList = 'chevron_right';
     this.Type = " Chào mừng admin đã đến với trang web quản lý sâm. Phía dưới là video hướng dẫn: ";
   }
+
   HandleNews(element: any){
     const element1 = element;
-    console.log(element1.target );
+    console.log(element1);
     if(this.active?.className != undefined){
       this.active.classList.remove('active-menu');
       this.hide = true;
@@ -38,6 +40,12 @@ export class ManagementComponent {
    
     this.active?.classList.add('active');
     console.log(this.active?.className);
+    if(this.active?.className == 'menu-certi active'){
+      this.reset();
+      this.isCertificate = true;
+      this.isOn = true;
+      
+    }
   }
   HandleList(element: any){
     this.hide = false;
@@ -58,19 +66,22 @@ export class ManagementComponent {
   }
   wineInput(){
     this.reset();
-    this.isWine = true;
-    this.isGinseng = false;
+    this.isWine = true;    
     this.isOn = true;
     document.getElementById("wine")?.setAttribute("style","font-weight : bold;");
   }
   reset(){
     this.isGinseng = false;
     this.isWine = false;
-    document.getElementById("ginseng")?.setAttribute("style","font-weight : normal;");
+    this.isCertificate = false;
+    document.getElementById("ginseng")?.setAttribute("style","font-weight : normal;");  
     document.getElementById("wine")?.setAttribute("style","font-weight : normal;");
   }
   public HandleEvent($event: any) : void{
     this.show = $event;
     this.Type  =  'Danh sách Sâm'
+  }
+  certificateInput(){
+
   }
 }
