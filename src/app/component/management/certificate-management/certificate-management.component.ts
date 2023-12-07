@@ -1,17 +1,22 @@
 import {
   Component,
+  Renderer2,
   ElementRef,
   OnInit,
   Inject,
+  ViewEncapsulation,
   ViewChild,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Certificate } from 'src/app/model/certificate';
 import { ToastrService } from 'ngx-toastr';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { AppService } from 'src/app/services/app-service/app.service';
 import { PaginationService } from 'src/app/services/app-service/pagination.service';
 import { CertiService } from 'src/app/services/api-service/certi.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-certificate-management',
@@ -49,8 +54,10 @@ export class CertificateManagementComponent {
     @Inject(CertiService) private certificateService: CertiService,
     private pagination: PaginationService,
     private router: Router,
-
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private appService: AppService,
+    private http: HttpClient,
+    private datePipe: DatePipe,
   ){
     this.loading = false;
     this.certificateService.getListCertificate(this.numberOfItems, this.currentPage).subscribe(
@@ -77,6 +84,9 @@ export class CertificateManagementComponent {
       // this.addForm.reset();
       this.GetList(this.currentPage, this.numberOfItems);
       this.isAdd = false;
+    }
+    formatDate(date: Date | null): any {
+      return date ? this.datePipe.transform(date, 'dd/MM/yyyy') : '';
     }
   GetList(page: number, number: any) {
     page--;

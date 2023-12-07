@@ -35,8 +35,8 @@
       <td class="order">{{ i + 1 }}</td>
       <td class="code">{{ item?.namecerti }}</td>
       <td class="name">{{ item?.id }}</td>
-      <td class="date">{{ item?.description | date : "dd/MM/yyyy" }}</td>
-      <td class="link">{{ item?.dated }}</td>
+      <td class="date">{{ item?.description  }}</td>
+      <td class="link">{{ item?.dated | date : "dd/MM/yyyy"}}</td>
       <td class="handle">
         <div type="button" (click)="handleUpdate(item.id)" >
           <svg

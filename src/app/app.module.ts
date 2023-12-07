@@ -25,7 +25,7 @@ import { WineManagementComponent } from './component/management/wine-management/
 import { FormsModule } from '@angular/forms';
 import { CertificateManagementComponent } from './component/management/certificate-management/certificate-management.component';
 import { QRCodeModule } from 'angularx-qrcode';
-
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -69,7 +69,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     multi: true,
 
   },
-  { provide: MAT_DATE_LOCALE, useValue: 'vi-VN' }],
+  { provide: MAT_DATE_LOCALE, useValue: 'vi-VN' },
+  DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
